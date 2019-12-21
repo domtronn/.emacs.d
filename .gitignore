@@ -1,0 +1,104 @@
+# Backups #
+###########
+*~
+*semanticdb*
+*eshell*
+*srecode*
+*.mc-lists.el*
+*.emmscache*
+*archive*
+*emms*
+*games*
+*.cask*
+xkcd
+.tern-port
+*readme.txt
+*-cli
+*.cask
+
+*bookmarks*
+*ede-projects*
+
+# My custom pacakages that aren't ready to be submodules
+elisp/all-the-icons*
+elisp/boop
+elisp/magit-gh-issues-emoji
+
+# Dynamic Emacs Files #
+#######################
+*.emacs.desktop*
+*ac-comphist.dat
+*node_modules*
+*tramp*
+*history*
+*scratch*
+*url*
+*.yas-compiled-*el
+*tutorial*
+*flycheck_init.el*
+
+*.wav
+*.m4a
+
+projectile.cache
+image-dired
+recentf
+layouts
+
+# Authentication files
+.*-auth.el
+
+.projectile-ignore.el
+
+# Emacs Directories form Packages #
+###################################
+/var/
+smex-items
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+*.tags
+*TAGS
+
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Packages
+etc/packages/*
+!use-package*
+!benchmark-init*
+!bind-key*
+!diminish*
