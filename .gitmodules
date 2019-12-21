@@ -1,0 +1,3 @@
+[submodule "etc/elisp-packages/snails"]
+	path = etc/elisp-packages/snails
+	url = https://github.com/manateelazycat/snails.git

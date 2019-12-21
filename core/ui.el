@@ -1,6 +1,14 @@
+(defvar after-load-theme-hook nil
+  "Hook run after the color theme is loaded using `load-theme'")
+
+(defadvice load-theme (after run-after-load-theme-hook activate)
+    "Run `after-load-theme-hook'."
+    (run-hooks 'after-load-theme-hook))
+
 (use-package doom-themes
   :ensure t
   :defer t
+  :hook (after-load-theme . doom-themes-visual-bell-config)
   :config
   (setq doom-one-light-brighter-modeline t
 	doom-spacegrey-brighter-modeline t
@@ -8,7 +16,7 @@
 	doom-enable-bold t)
   (doom-themes-org-config) 
 					; (doom-themes-treemacs-config)
-  (doom-themes-visual-bell-config))
+  )
 
 (use-package doom-modeline
   :ensure t

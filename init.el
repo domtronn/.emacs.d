@@ -42,6 +42,7 @@
   ;; Load core modules
   (use-package ui :load-path "core")
   (use-package completion :load-path "core")
+  (use-package projects :load-path "core")
 
   ;; ;; Load language modes
   (use-package go :load-path "modes")
