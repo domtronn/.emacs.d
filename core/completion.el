@@ -43,6 +43,10 @@
         counsel-yank-pop-separator "\n----------\n"
       ))
 
+(use-package counsel-projectile
+  :after (projectile counsel)
+  :bind (("C-x C-b" . counsel-projectile-swnnnitch-to-buffer)))
+
 (use-package counsel-osx-app
   :if (memq window-system '(mac ns))
   :bind (("s-O" . counsel-osx-app)))
