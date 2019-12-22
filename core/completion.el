@@ -12,14 +12,6 @@
   (setq amx-history-length 20
         amx-show-key-bindings t))
 
-(use-package display-line-numbers
-  :ensure nil
-  :hook (prog-mode . display-line-numbers-mode)
-  :config
-  (setq display-line-numbers-width 3)
-  (set-face-attribute 'line-number nil :height 0.7 :background (face-attribute 'solaire-default-face :background))
-  (set-face-attribute 'line-number-current-line nil :height 0.7 :background (face-attribute 'solaire-default-face :background)))
-
 (use-package company
   :config
   (setq company-show-numbers t
@@ -96,7 +88,8 @@
 ;; go - GO111MODULE=on go get golang.org/x/tools/gopls@latest
 
 (use-package lsp-mode
-  :hook (go-mode . lsp-deferred)
+  :hook ((go-mode  . lsp-deferred)
+         (js2-mode . lsp-deferred))
   :commands (lsp))
 
 (use-package company-lsp
