@@ -43,8 +43,9 @@
 
 (use-package winum
   :init
-  (dotimes (n 10)
-    (global-set-key (kbd (format "s-%s" n)) (intern (format "winum-select-window-%s" n))))
+  (dotimes (n 9)
+    (global-set-key (kbd (format "s-%s" (1+ n)))
+                    (intern (format "winum-select-window-%s" (1+ n)))))
   :config (winum-mode))
 
 (provide 'navigation)
