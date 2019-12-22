@@ -27,6 +27,11 @@
          ("s-n" . sp-down-sexp)
          ("s--" . sp-forward-slurp-sexp)))
 
+(use-package embrace
+  :config
+  (bind-keys ("C-," . embrace-add)
+             ("C-<" . embrace-change)))
+
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
