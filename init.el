@@ -72,6 +72,7 @@
 
   ;; ;; Load language modes
   (use-package go :load-path "modes")
+  (use-package js :load-path "modes")
   (use-package elisp :load-path "modes")
 
   ;; Custom settings
