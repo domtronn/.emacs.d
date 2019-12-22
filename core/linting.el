@@ -3,17 +3,23 @@
 ;;; Code:
 
 (use-package flycheck
-  :hook (prog-mode . flycheck-mode)
+  :hook (after-init . global-flycheck-mode)
   :commands (flycheck-list-errors
              flycheck-previous-error
              flycheck-next-error)
   :config
   (global-flycheck-mode)
+  (setq flycheck-emacs-lisp-load-path 'inherit
+        flycheck-check-syntax-automatically '(save mode-enabled))
   (bind-keys :prefix "C-c e"
              :prefix-map flycheck-keymap-prefix
              ("l" . flycheck-list-errors)
              ("p" . flycheck-previous-error)
-             ("n" . flycheck-next-error)))
+             ("n" . flycheck-next-error))
+
+  (with-eval-after-load 'js2-mode
+    (setq flycheck-javascript-eslint-executable "eslint_d")
+    ))
 
 (use-package lsp-ui
   :commands lsp-ui-mode

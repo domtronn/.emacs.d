@@ -15,7 +15,7 @@
  '(ns-function-modifier (quote hyper))
  '(package-selected-packages
    (quote
-    (counsel-projectile smartparens-config smartparens move-text quickrun smart-hungry-delete format-all whitespace-cleanup-mode winum uniquify lsp-ui flycheck-title flycheck-inline flycheck company-lsp company-box company-posframe company-quickhelp counsel-osx-app amx ivy-rich ivy-prescient ivy-posframe ivy-posframe-font company-prescient treemacs-projectile treemacs-magit treemacs magit projectile ivy-hydra all-the-icons highlight-parentheses highlight-quoted highlight-defined go-eldoc go-mode lsp-mode counsel smex company exec-path-from-shell dashboard esup use-package)))
+    (js2-mode json-mode counsel-projectile smartparens-config smartparens move-text quickrun smart-hungry-delete format-all whitespace-cleanup-mode winum uniquify lsp-ui flycheck-title flycheck-inline flycheck company-lsp company-box company-posframe company-quickhelp counsel-osx-app amx ivy-rich ivy-prescient ivy-posframe ivy-posframe-font company-prescient treemacs-projectile treemacs-magit treemacs magit projectile ivy-hydra all-the-icons highlight-parentheses highlight-quoted highlight-defined go-eldoc go-mode lsp-mode counsel smex company exec-path-from-shell dashboard esup use-package)))
  '(ring-bell-function (quote ignore))
  '(scroll-bar-mode nil)
  '(tab-width 2)
