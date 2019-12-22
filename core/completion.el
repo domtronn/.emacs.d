@@ -17,12 +17,12 @@
   (setq company-show-numbers t
         company-tooltip-align-annotations t
         )
-  :hook (after-init . global-company-mode)
-  :bind (("<kp-enter>" . company-complete)
-         ("M-/" . company-complete)
+  :hook (after-init     . global-company-mode)
+  :bind (("<kp-enter>"  . company-complete)
+         ("M-/"         . company-complete)
          :map company-active-map
-         ("C-n" . company-select-next)
-         ("C-p" . company-select-previous)
+         ("C-n"         . company-select-next)
+         ("C-p"         . company-select-previous)
          ))
 
 (use-package company-box
@@ -37,16 +37,19 @@
          ("C-x C-f" . counsel-find-file)
          ("C-h f"   . counsel-describe-function)
          ("C-h v"   . counsel-describe-variable)
-
-         ("s-Y" . counsel-yank-pop))
+         ("s-Y"     . counsel-yank-pop))
   :config
   (setq counsel-find-file-at-point t
         counsel-yank-pop-separator "\n----------\n"
-        ))
+      ))
 
 (use-package counsel-osx-app
   :if (memq window-system '(mac ns))
   :bind (("s-O" . counsel-osx-app)))
+
+(use-package swiper
+  :bind (("C-;" . swiper)
+         ("C-:" . swiper-all)))
 
 (use-package ivy-hydra :after ivy)
 (use-package ivy
@@ -63,17 +66,19 @@
   :if window-system
   :after ivy
   :config
-  (setq ivy-posframe-parameters '((left-fringe . 0) (right-fringe . 0))
-        ivy-posframe-border-width 20
+  (setq ivy-posframe-border-width 20
         ivy-posframe-min-width 60
         ivy-posframe-width 120
         ivy-posframe-min-height 20
         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  (ivy-posframe-mode))
+  (ivy-posframe-mode)
+  :bind (:map ivy-minibuffer-map
+         ("<backspace>" . delete-backward-char)
+         ("C-d"         . delete-forward-char)))
 
 (use-package ivy-rich
   :after ivy
-  :hook (ivy-mode . ivy-rich-mode))
+  :config (ivy-rich-mode))
 
 ;; LSP servers
 ;; go - GO111MODULE=on go get golang.org/x/tools/gopls@latest

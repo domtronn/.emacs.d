@@ -11,5 +11,24 @@
   :bind (("s-P" . move-text-up)
          ("s-N" . move-text-down)))
 
+(use-package smartparens-config
+  :ensure nil
+  :after smartparens)
+
+(use-package smartparens
+  :hook (prog-mode . smartparens-mode)
+  :bind (("s-F" . sp-end-of-sexp)
+         ("s-B" . sp-beginning-of-sexp)
+         ("s-f" . sp-forward-sexp)
+         ("s-b" . sp-backward-sexp)
+
+         ("s-p" . sp-backward-up-sexp)
+         ("s-n" . sp-down-sexp)))
+
+(bind-keys
+ ("C-K" . kill-whole-line)
+ ("M-D" . backward-kill-word)
+ )
+
 (provide 'editing)
 ;;; editing.el ends here

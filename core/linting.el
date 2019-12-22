@@ -13,8 +13,7 @@
              :prefix-map flycheck-keymap-prefix
              ("l" . flycheck-list-errors)
              ("p" . flycheck-previous-error)
-             ("n" . flycheck-next-error))
-  )
+             ("n" . flycheck-next-error)))
 
 (use-package lsp-ui
   :commands lsp-ui-mode

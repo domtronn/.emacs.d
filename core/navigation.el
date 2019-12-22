@@ -48,5 +48,10 @@
                     (intern (format "winum-select-window-%s" (1+ n)))))
   :config (winum-mode))
 
+(bind-keys
+ ("M-n" . forward-paragraph)
+ ("M-p" . backward-paragraph)
+ )
+
 (provide 'navigation)
 ;;; navigation.el ends here

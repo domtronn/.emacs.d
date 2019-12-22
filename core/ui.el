@@ -47,6 +47,10 @@
 (use-package rainbow-mode :defer t
   :hook (prog-mode . rainbow-mode))
 
+(use-package popwin
+
+  )
+
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 

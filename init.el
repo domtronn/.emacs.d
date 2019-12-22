@@ -14,7 +14,7 @@
 
   ;; Custom variables
   (setq
-   
+
    )
 
   ;; Bootup mode
@@ -34,8 +34,8 @@
            . (lambda ()
                (async-start
                 `(lambda () '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
-                (lambda (res) (mapc (lambda (pair) (exec-path-from-shell-setenv (car pair) (cdr pair))) (car res)))))))
-  
+                (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
+
   (use-package esup :commands (esup))
   (use-package dashboard
     :config
@@ -58,8 +58,7 @@
                 ("C-n" . next-line)
                 ("C-p" . previous-line)
                 ("t" . counsel-load-theme)
-                ("f" . set-frame-font))))
-    )
+                ("f" . set-frame-font)))))
 
   (use-package no-littering)
   (use-package try :commands (try))
@@ -69,6 +68,7 @@
   (use-package completion :load-path "core")
   (use-package navigation :load-path "core")
   (use-package linting :load-path "core")
+  (use-package editing :load-path "core")
 
   ;; ;; Load language modes
   (use-package go :load-path "modes")
