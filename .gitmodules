@@ -1,3 +1,6 @@
 [submodule "etc/elisp-packages/snails"]
 	path = etc/elisp-packages/snails
 	url = https://github.com/manateelazycat/snails.git
+[submodule "etc/elisp-packages/awesome-tab"]
+	path = etc/elisp-packages/awesome-tab
+	url = https://github.com/manateelazycat/awesome-tab.git

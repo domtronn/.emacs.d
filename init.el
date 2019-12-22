@@ -1,3 +1,7 @@
+;;; init --- My custom init file
+;;; Commentary:
+;;; Code:
+
 (let ((file-name-handler-alist nil))
   ;; Set GC threshold to speed up start time
   (setq gc-cons-threshold 100000000)
@@ -8,43 +12,70 @@
   (setq-default package-user-dir "~/.emacs.d/etc/packages")
   (load-file "~/.emacs.d/custom.el")
 
+  ;; Custom variables
+  (setq
+   
+   )
+
   ;; Bootup mode
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize)
-  
-  (eval-when-compile (require 'use-package))
 
-  (use-package esup :ensure t :commands (esup))
+  (eval-when-compile
+    (require 'use-package)
+    (setq use-package-always-ensure t))
+
+  (use-package exec-path-from-shell
+    :if (memq window-system '(mac ns))
+    :commands (exec-path-from-shell-getenvs
+               exec-path-from-shell-setenv)
+    :hook (emacs-startup
+           . (lambda ()
+               (async-start
+                `(lambda () '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
+                (lambda (res) (mapc (lambda (pair) (exec-path-from-shell-setenv (car pair) (cdr pair))) (car res)))))))
+  
+  (use-package esup :commands (esup))
   (use-package dashboard
-    :ensure t
     :config
     (setq
      dashboard-startup-banner "~/.emacs.d/var/logo.png"
      dashboard-center-content t
 
      dashboard-set-heading-icons t
-     dashboard-set-file-icons t)
+     dashboard-set-file-icons t
+
+     dashboard-items '((recents . 5)
+                       (projects . 5)
+                       (bookmarks . 5)))
+
     (dashboard-setup-startup-hook)
     :hook (dashboard-mode
-	   . (lambda ()
-	       (bind-keys
-		:map dashboard-mode-map
-		("n" . next-line)
-		("p" . previous-line)
-		("t" . counsel-load-theme)
-		("f" . set-frame-font))))
+           . (lambda ()
+               (bind-keys
+                :map dashboard-mode-map
+                ("C-n" . next-line)
+                ("C-p" . previous-line)
+                ("t" . counsel-load-theme)
+                ("f" . set-frame-font))))
     )
 
-  (use-package no-littering :ensure t)
-  (use-package try :ensure t :commands (try))
+  (use-package no-littering)
+  (use-package try :commands (try))
 
   ;; Load core modules
   (use-package ui :load-path "core")
   (use-package completion :load-path "core")
-  (use-package projects :load-path "core")
+  (use-package navigation :load-path "core")
+  (use-package linting :load-path "core")
 
   ;; ;; Load language modes
   (use-package go :load-path "modes")
   (use-package elisp :load-path "modes")
-)
+
+  ;; Custom settings
+  (fset 'yes-or-no-p 'y-or-n-p))
+
+(provide 'init)
+;;; init.el ends here
