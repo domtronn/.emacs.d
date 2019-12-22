@@ -22,5 +22,21 @@
   :config
   (setq lsp-prefer-flymake nil))
 
+(use-package whitespace-cleanup-mode
+  :config (global-whitespace-cleanup-mode))
+
+(use-package format-all
+  :init (define-prefix-command 'format-all-map)
+  :config
+  (bind-keys :prefix "C-c RET"
+             :prefix-map format-all-map
+             ("RET" . format-all-buffer)))
+
+(use-package quickrun
+  :commands quickrun
+  :init (define-prefix-command 'quickrun-map)
+  :config
+  (bind-keys ("C-x RET RET" . quickrun)))
+
 (provide 'linting)
 ;;; linting.el ends here
