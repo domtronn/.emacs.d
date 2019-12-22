@@ -41,5 +41,11 @@
 (use-package treemacs-magit :after treemacs magit)
 (use-package treemacs-projectile :after treemacs projectile)
 
+(use-package winum
+  :init
+  (dotimes (n 10)
+    (global-set-key (kbd (format "s-%s" n)) (intern (format "winum-select-window-%s" n))))
+  :config (winum-mode))
+
 (provide 'navigation)
 ;;; navigation.el ends here
