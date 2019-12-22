@@ -60,7 +60,10 @@
         ivy-count-format "(%d/%d) "
         ivy-re-builders-alist
         '((swiper . ivy--regex-plus)
-          (t      . ivy--regex-fuzzy))))
+          (t      . ivy--regex-fuzzy)))
+  :bind (:map ivy-minibuffer-map
+         ("<backspace>" . delete-backward-char)
+         ("C-d"         . delete-forward-char)))
 
 (use-package ivy-posframe
   :if window-system
@@ -71,10 +74,7 @@
         ivy-posframe-width 120
         ivy-posframe-min-height 20
         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  (ivy-posframe-mode)
-  :bind (:map ivy-minibuffer-map
-         ("<backspace>" . delete-backward-char)
-         ("C-d"         . delete-forward-char)))
+  (ivy-posframe-mode))
 
 (use-package ivy-rich
   :after ivy
