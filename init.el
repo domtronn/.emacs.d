@@ -36,6 +36,9 @@
                 `(lambda () '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
                 (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
 
+  (use-package hide-mode-line
+    :hook ((dashboard-mode) . hide-mode-line-mode))
+
   (use-package esup :commands (esup))
   (use-package dashboard
     :config

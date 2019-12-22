@@ -10,6 +10,7 @@
    (quote
     ("a4b9eeeabde73db909e6b080baf29d629507b44276e17c0c411ed5431faf87dd" "ed573618e4c25fa441f12cbbb786fb56d918f216ae4a895ca1c74f34a19cfe67" default)))
  '(flycheck-title-mode t)
+ '(fringe-mode 0 nil (fringe))
  '(indent-tabs-mode nil)
  '(make-backup-files nil)
  '(ns-function-modifier (quote hyper))

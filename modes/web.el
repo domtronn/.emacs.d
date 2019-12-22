@@ -12,5 +12,5 @@
   (setq js-indent-level 2
         js2-basic-offset 2))
 
-(provide 'js)
+(provide 'web)
 ;;; web.el ends here

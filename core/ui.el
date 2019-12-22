@@ -26,7 +26,8 @@
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :init
-  (setq doom-modeline-bar-width 3
+  (setq doom-modeline-bar-width 5
+        doom-modeline-buffer-file-name-style 'truncate-except-project
         doom-modeline-lsp t
         doom-modeline-env-version t
         doom-modeline-indent-info nil
@@ -71,17 +72,17 @@
    'doom-moonlight))
 
 ;; Custom sets
-(setq use-file-dialog nil
-      use-dialog-box nil
-      inhibit-startup-screen t
-      inhibit-startup-echo-area-message t
+(setq-default use-file-dialog nil
+              use-dialog-box nil
+              inhibit-startup-screen t
+              inhibit-startup-echo-area-message t
 
-      fringe-mode 0
-      truncate-lines t
+              fringe-mode 0
+              truncate-lines t
 
-      ns-use-thin-smoothing t
-      ns-antialias-text t
-      ns-pop-up-frames nil)
+              ns-use-thin-smoothing t
+              ns-antialias-text t
+              ns-pop-up-frames nil)
 
 (provide 'ui)
 ;;; ui.el ends here
