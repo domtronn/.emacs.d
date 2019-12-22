@@ -26,13 +26,17 @@
   :commands lsp-ui-mode
   :hook (prog-mode . lsp-ui-mode)
   :config
+  (defvar
+    lsp-ui-non-flycheck-modes
+    '(rjsx-mode js2-mode))
   (setq lsp-prefer-flymake nil)
 
   (advice-add 'lsp-ui-flycheck-enable :around
               '(lambda (orig-f &rest args)
                  (let ((current-checker (flycheck-get-checker-for-buffer)))
                    (apply orig-f args)
-                   (flycheck-select-checker current-checker)))))
+                   (when (memq major-mode lsp-ui-non-flycheck-modes)
+                     (flycheck-select-checker current-checker))))))
 
 (use-package whitespace-cleanup-mode
   :config (global-whitespace-cleanup-mode))
