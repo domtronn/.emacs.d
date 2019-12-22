@@ -29,7 +29,7 @@
   :hook (company-mode . company-box-mode)
   :config
   (setq company-box-icons-alist 'company-box-icons-all-the-icons
-   ))
+        ))
 
 (use-package counsel
   :after ivy
@@ -63,11 +63,12 @@
   :if window-system
   :after ivy
   :config
-  (setq ivy-posframe-min-width 60
+  (setq ivy-posframe-parameters '((left-fringe . 0) (right-fringe . 0))
+        ivy-posframe-border-width 20
+        ivy-posframe-min-width 60
         ivy-posframe-width 120
         ivy-posframe-min-height 20
-        ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center))
-        )
+        ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
   (ivy-posframe-mode))
 
 (use-package ivy-rich
@@ -83,6 +84,6 @@
 
 (use-package company-lsp
   :config (push 'company-lsp company-backends))
-  
+
 (provide 'completion)
 ;;; completion.el ends here
