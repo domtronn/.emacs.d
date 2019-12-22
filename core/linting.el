@@ -31,12 +31,9 @@
     '(rjsx-mode js2-mode))
   (setq lsp-prefer-flymake nil)
 
-  (advice-add 'lsp-ui-flycheck-enable :around
-              '(lambda (orig-f &rest args)
-                 (let ((current-checker (flycheck-get-checker-for-buffer)))
-                   (apply orig-f args)
-                   (when (memq major-mode lsp-ui-non-flycheck-modes)
-                     (flycheck-select-checker current-checker))))))
+  (advice-add 'lsp-ui-flycheck-enable :after
+              '(lambda (&rest args)
+                 (flycheck-disable-checker 'lsp-ui))))
 
 (use-package whitespace-cleanup-mode
   :config (global-whitespace-cleanup-mode))
