@@ -20,10 +20,11 @@
 
 (use-package magit
   :mode ("\/COMMIT_EDITMSG$" . text-mode)
-  :bind (("C-c g" . magit-status)
-         ("C-c b" . magit-blame)
+  :bind (("C-c g"            . magit-status)
+         ("C-c C-g "         . magit-dispatch)
+         ("C-c b"            . magit-blame)
          :map magit-mode-map
-         ("o" . magit-open-file-other-window)))
+         ("o"                . magit-open-file-other-window)))
 
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window))
@@ -46,6 +47,16 @@
     (global-set-key (kbd (format "s-%s" (1+ n)))
                     (intern (format "winum-select-window-%s" (1+ n)))))
   :config (winum-mode))
+
+(use-package mwim
+  :bind (([remap move-beginning-of-line] . mwim-beginning-of-code-or-line)
+         ([remap move-end-of-line]       . mwim-end-of-code-or-line)))
+
+(use-package avy
+  :bind ("C-'" . avy-goto-char-timer))
+
+(use-package avy-flycheck
+  :bind ("C-c '" . avy-flycheck-goto-error))
 
 (bind-keys
  ("M-n" . forward-paragraph)

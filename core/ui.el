@@ -61,7 +61,6 @@
     (set-face-attribute 'line-number nil :height 0.7 :background bg)
     (set-face-attribute 'line-number-current-line nil :height 0.7 :background bg)))
 
-
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 

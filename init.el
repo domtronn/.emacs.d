@@ -12,11 +12,6 @@
   (setq-default package-user-dir "~/.emacs.d/etc/packages")
   (load-file "~/.emacs.d/custom.el")
 
-  ;; Custom variables
-  (setq
-
-   )
-
   ;; Bootup mode
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -37,7 +32,7 @@
                 (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
 
   (use-package hide-mode-line
-    :hook ((dashboard-mode) . hide-mode-line-mode))
+    :hook ((dashboard-mode lsp-ui-imenu-mode) . hide-mode-line-mode))
 
   (use-package esup :commands (esup))
   (use-package dashboard

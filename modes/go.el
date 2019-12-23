@@ -6,5 +6,8 @@
 (use-package go-eldoc
   :after go-mode
   :hook (go-mode . go-eldoc-setup))
-  
+
+(use-package go-fill-struct
+  :after go-mode)
+
 (provide 'go)

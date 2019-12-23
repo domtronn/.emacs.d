@@ -15,20 +15,55 @@
 (use-package company
   :config
   (setq company-show-numbers t
+        company-tooltip-limit 20
         company-tooltip-align-annotations t
+        company-idle-delay 0
+        company-minimum-prefix-length 2
         )
-  :hook (after-init     . global-company-mode)
-  :bind (("<kp-enter>"  . company-complete)
-         ("M-/"         . company-complete)
+  :hook (after-init    . global-company-mode)
+  :bind (("<kp-enter>" . company-complete)
+         ("M-/"        . company-complete)
          :map company-active-map
-         ("C-n"         . company-select-next)
-         ("C-p"         . company-select-previous)
+         ("<tab>"      . company-complete-common-or-cycle)
+         ("C-n"        . company-select-next)
+         ("C-p"        . company-select-previous)
          ))
+
+(use-package company-lsp
+  :config (push 'company-lsp company-backends))
 
 (use-package company-box
   :hook (company-mode . company-box-mode)
   :config
   (setq company-box-icons-alist 'company-box-icons-all-the-icons
+        company-box-icons-all-the-icons
+        `((Unknown       . ,(all-the-icons-material "find_in_page" :height 0.85 :v-adjust -0.2))
+          (Text          . ,(all-the-icons-faicon "text-width" :height 0.8 :v-adjust -0.05))
+          (Method        . ,(all-the-icons-faicon "cube" :height 0.8 :v-adjust -0.05))
+          (Function      . ,(all-the-icons-faicon "cube" :height 0.8 :v-adjust -0.05))
+          (Constructor   . ,(all-the-icons-faicon "cube" :height 0.8 :v-adjust -0.05))
+          (Field         . ,(all-the-icons-octicon "tag" :height 0.8 :v-adjust 0))
+          (Variable      . ,(all-the-icons-octicon "tag" :height 0.8 :v-adjust 0))
+          (Class         . ,(all-the-icons-material "settings_input_component" :height 0.85 :v-adjust -0.2))
+          (Interface     . ,(all-the-icons-material "share" :height 0.85 :v-adjust -0.2))
+          (Module        . ,(all-the-icons-material "view_module" :height 0.85 :v-adjust -0.2))
+          (Property      . ,(all-the-icons-faicon "wrench" :height 0.8 :v-adjust -0.05))
+          (Unit          . ,(all-the-icons-material "settings_system_daydream" :height 0.85 :v-adjust -0.2))
+          (Value         . ,(all-the-icons-material "format_align_right" :height 0.85 :v-adjust -0.2))
+          (Enum          . ,(all-the-icons-material "storage" :height 0.85 :v-adjust -0.2))
+          (Keyword       . ,(all-the-icons-material "filter_center_focus" :height 0.85 :v-adjust -0.2))
+          (Snippet       . ,(all-the-icons-material "format_align_center" :height 0.85 :v-adjust -0.2))
+          (Color         . ,(all-the-icons-material "palette" :height 0.85 :v-adjust -0.2))
+          (File          . ,(all-the-icons-faicon "file-o" :height 0.85 :v-adjust -0.05))
+          (Reference     . ,(all-the-icons-material "collections_bookmark" :height 0.85 :v-adjust -0.2))
+          (Folder        . ,(all-the-icons-faicon "folder-open" :height 0.85 :v-adjust -0.05))
+          (EnumMember    . ,(all-the-icons-material "format_align_right" :height 0.85 :v-adjust -0.2))
+          (Constant      . ,(all-the-icons-faicon "square-o" :height 0.85 :v-adjust -0.05))
+          (Struct        . ,(all-the-icons-material "settings_input_component" :height 0.85 :v-adjust -0.2))
+          (Event         . ,(all-the-icons-octicon "zap" :height 0.8 :v-adjust 0))
+          (Operator      . ,(all-the-icons-material "control_point" :height 0.85 :v-adjust -0.2))
+          (TypeParameter . ,(all-the-icons-faicon "arrows" :height 0.8 :v-adjust -0.05))
+          (Template      . ,(all-the-icons-material "format_align_center" :height 0.85 :v-adjust -0.2)))
         ))
 
 (use-package counsel
@@ -45,7 +80,8 @@
 
 (use-package counsel-projectile
   :after (projectile counsel)
-  :bind (("C-x C-b" . counsel-projectile-swnnnitch-to-buffer)))
+  :commands counsel-projectile-switch-to-buffer
+  :bind (("C-x C-b" . counsel-projectile-switch-to-buffer)))
 
 (use-package counsel-osx-app
   :if (memq window-system '(mac ns))
@@ -91,9 +127,6 @@
   :hook ((go-mode  . lsp-deferred)
          (js2-mode . lsp-deferred))
   :commands (lsp))
-
-(use-package company-lsp
-  :config (push 'company-lsp company-backends))
 
 (provide 'completion)
 ;;; completion.el ends here
