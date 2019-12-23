@@ -25,13 +25,29 @@
 
          ("s-p" . sp-backward-up-sexp)
          ("s-n" . sp-down-sexp)
+
          ("s--" . sp-forward-slurp-sexp)))
 
 (use-package embrace
-  :config
-  (bind-keys ("C-," . embrace-add)
-             ("C-<" . embrace-change)))
+  :bind (("C-," . embrace-add)
+         ("C-<" . embrace-change)))
 
+(use-package expand-region
+  :bind ("M-q" . er/expand-region))
+
+(use-package electric-operator
+  :commands ( electric-operator-add-rules-for-mode )
+  :hook (prog-mode . electric-operator-mode)
+  :config (electric-operator-add-rules-for-mode
+           'emacs-lisp-mode
+           (cons "-" "-")
+           (cons "." " . ")))
+
+(use-package visual-regexp-steroids
+  :bind (("s-r" . vr/replace)
+         ("s-R" . vr/query-replace)))
+
+(delete-selection-mode 1)
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
