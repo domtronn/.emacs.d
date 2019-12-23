@@ -25,6 +25,12 @@
 (use-package lsp-ui
   :commands lsp-ui-mode
   :hook (prog-mode . lsp-ui-mode)
+  :bind (("C-." . lsp-ui-imenu)
+         :map lsp-ui-imenu-mode-map
+         ("n"   . next-line)
+         ("p"   . previous-line)
+         ("M-n" . lsp-ui-imenu--next-kind)
+         ("M-p" . lsp-ui-imenu--prev-kind))
   :config
   (defvar
     lsp-ui-non-flycheck-modes
