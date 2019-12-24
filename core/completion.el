@@ -25,12 +25,20 @@
          ("M-/"        . company-complete)
          :map company-active-map
          ("<tab>"      . company-complete-common-or-cycle)
+         ("<backtab>"  . company-select-previous)
          ("C-n"        . company-select-next)
          ("C-p"        . company-select-previous)
          ))
 
+(use-package company-prescient
+  :init (company-prescient-mode 1))
+
 (use-package company-lsp
   :config (push 'company-lsp company-backends))
+
+(use-package company-emoji
+  :after company
+  :config (add-to-list 'company-backends 'company-emoji))
 
 (use-package company-box
   :hook (company-mode . company-box-mode)
@@ -104,6 +112,9 @@
   :bind (:map ivy-minibuffer-map
          ("<backspace>" . delete-backward-char)
          ("C-d"         . delete-forward-char)))
+
+(use-package ivy-prescient
+  :init (ivy-prescient-mode 1))
 
 (use-package ivy-posframe
   :if window-system
