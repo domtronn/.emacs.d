@@ -8,5 +8,14 @@
   :hook (emacs-lisp-mode . highlight-parentheses-mode)
   :config (setq hl-paren-colors '("#91ca55" "#f45d43" "#ee3f46" "#c0392b")))
 
+(use-package eros
+  :hook (emacs-lisp-mode . eros-mode)
+  :bind (:map emacs-lisp-mode-map
+              ("s-e" . eros-eval-last-sexp))
+  :config
+  (set-face-attribute 'eros-result-overlay-face nil
+                      :box `(:line-width -1 :color ,(face-attribute 'success :foreground))
+                      :foreground (face-attribute 'success :foreground)
+                      :inherit 'solaire-default-face))
 
 (provide 'elisp)
