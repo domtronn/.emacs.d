@@ -8,7 +8,6 @@
 ;; TODO: pomidor
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
-;; TODO: multiple cursors
 
 ;;; Code:
 
@@ -53,16 +52,16 @@
   (use-package try :commands (try))
 
   ;; Load core modules
-  (use-package ui :load-path "core")
-  (use-package vcs :load-path "core")
-  (use-package linting :load-path "core")
-  (use-package editing :load-path "core")
+  (use-package ui         :load-path "core")
+  (use-package vcs        :load-path "core")
+  (use-package linting    :load-path "core")
+  (use-package editing    :load-path "core")
   (use-package completion :load-path "core")
   (use-package navigation :load-path "core")
 
   ;; ;; Load language modes
-  (use-package go :load-path "modes")
-  (use-package web :load-path "modes")
+  (use-package go    :load-path "modes")
+  (use-package web   :load-path "modes")
   (use-package elisp :load-path "modes")
 
   ;; custom settings

@@ -85,6 +85,17 @@
   :bind (("s-d" . duplicate-thing)
          ("s-D" . duplicate-thing-replace)))
 
+(use-package multiple-cursors
+  :bind (("<down>"   . mc/mark-next-like-this)
+         ("<S-down>" . mc/skip-to-next-like-this)
+         ("<up>"     . mc/mark-previous-like-this)
+         ("<S-up>"   . mc/skip-to-previous-like-this)
+         ("<right>"  . mc/mark-all-like-this)
+         ("<left>"   . mc/edit-lines)
+         :map mc/keymap
+         ("C-|"      . mc/vertical-align-with-space)
+         ("C-i"      . mc/insert-numbers)))
+
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
