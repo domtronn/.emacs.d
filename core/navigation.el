@@ -17,16 +17,6 @@
         projectile-sort-order 'recently-active)
   :bind (("C-c p p" . projectile-switch-project)))
 
-(use-package magit
-  :mode ("\/COMMIT_EDITMSG$" . text-mode)
-  :bind (("C-c g"            . magit-status)
-         ("C-c C-g "         . magit-dispatch)
-         ("C-c b"            . magit-blame)
-         :map magit-mode-map
-         ("o"                . magit-open-file-other-window)))
-
-(use-package forge :after magit)
-
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window))
   :config

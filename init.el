@@ -1,5 +1,17 @@
 ;;; init --- My custom init file
 ;;; Commentary:
+
+;; Future features / packages to look into
+
+;; TODO: focus
+;; TODO: howdoyou
+;; TODO: pomidor
+;; TODO: docker tramp
+;; TODO: kubernets porcelain
+;; TODO: auto select new windows
+;; TODO: multiple cursors
+;; TODO: undo tree
+
 ;;; Code:
 
 (let ((file-name-handler-alist nil))
@@ -35,46 +47,32 @@
     :hook ((dashboard-mode lsp-ui-imenu-mode) . hide-mode-line-mode))
 
   (use-package esup :commands (esup))
-  (use-package dashboard
-    :config
-    (setq
-     dashboard-startup-banner "~/.emacs.d/var/logo.png"
-     dashboard-center-content t
-
-     dashboard-set-heading-icons t
-     dashboard-set-file-icons t
-
-     dashboard-items '((recents . 5)
-                       (projects . 5)
-                       (bookmarks . 5)))
-
-    (dashboard-setup-startup-hook)
-    :hook (dashboard-mode
-           . (lambda ()
-               (bind-keys
-                :map dashboard-mode-map
-                ("C-n" . next-line)
-                ("C-p" . previous-line)
-                ("t" . counsel-load-theme)
-                ("f" . set-frame-font)))))
+  (use-package spu
+    :defer 5
+    :config (spu-package-upgrade-daily))
 
   (use-package no-littering)
   (use-package try :commands (try))
 
   ;; Load core modules
   (use-package ui :load-path "core")
-  (use-package completion :load-path "core")
-  (use-package navigation :load-path "core")
+  (use-package vcs :load-path "core")
   (use-package linting :load-path "core")
   (use-package editing :load-path "core")
+  (use-package completion :load-path "core")
+  (use-package navigation :load-path "core")
 
   ;; ;; Load language modes
   (use-package go :load-path "modes")
   (use-package web :load-path "modes")
   (use-package elisp :load-path "modes")
 
-  ;; Custom settings
-  (fset 'yes-or-no-p 'y-or-n-p))
+  ;; custom settings
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (bind-keys
+   ("M-£" . (lambda () (interactive) (insert "#")))
+   ("M-*" . (lambda () (interactive) (insert "•"))))
+  )
 
 (provide 'init)
 ;;; init.el ends here
