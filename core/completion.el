@@ -133,6 +133,12 @@
   :after ivy
   :config (ivy-rich-mode))
 
+(use-package which-key
+  :config
+  (which-key-setup-side-window-right)
+  (which-key-mode)
+  )
+
 ;; LSP servers
 ;; go - GO111MODULE=on go get golang.org/x/tools/gopls@latest
 
