@@ -24,7 +24,12 @@
 
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window))
+  :hook (treemacs-mode
+         . (lambda ()
+             (face-remap-add-relative 'fringe :background (face-background 'default))
+             (face-remap-add-relative 'hl-line :background (face-background 'default))))
   :config
+  (advice-add 'doom-themes-hide-fringes :after (lambda () (set-window-fringes nil 8 0)))
   (with-no-warnings
     (treemacs-follow-mode)
     (treemacs-filewatch-mode)
@@ -61,8 +66,12 @@
   :bind (([remap move-beginning-of-line] . mwim-beginning-of-code-or-line)
          ([remap move-end-of-line]       . mwim-end-of-code-or-line)))
 
+(use-package link-hint
+  :bind ("H-l" . link-hint-open-link))
+
 (use-package avy
-  :bind ("C-'" . avy-goto-char-timer))
+  :bind (("C-'" . avy-goto-char-timer)
+         ("C-S-l" . avy-goto-line)))
 
 (use-package avy-flycheck
   :bind ("C-c '" . avy-flycheck-goto-error))
@@ -99,6 +108,8 @@
 (use-package highlight-symbol
   :bind (("s->" . highlight-symbol-next)
          ("s-<" . highlight-symbol-prev)))
+
+
 
 (bind-keys
  ("M-n"     . forward-paragraph)

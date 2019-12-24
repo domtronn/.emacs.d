@@ -27,9 +27,9 @@
 
 (use-package browse-at-remote
   :bind (:map vc-prefix-map
-         ("v" . browse-at-remote)
-         :map magit-mode-map
-         ("V" . browse-at-remote)))
+              ("v" . browse-at-remote)
+              :map magit-mode-map
+              ("V" . browse-at-remote)))
 
 (use-package git-link
   :bind (:map vc-prefix-map
@@ -39,15 +39,16 @@
   :ensure nil
   :init (defvar ediff-window-config nil)
   :bind (:map vc-prefix-map ("d" . vc-ediff))
-  :hook ((ediff-before-setup
+  :hook ((ediff-prepare-buffer . hide-mode-line-mode)
+         (ediff-before-setup
           . (lambda () (setq ediff-window-config (current-window-configuration))))
          (ediff-quit
           . (lambda ()
               (set-window-configuration ediff-window-config)
               (-map 'kill-buffer
-                        (--filter (and (not (string-equal (buffer-name) (buffer-name it)))
-                                       (s-starts-with-p (buffer-name) (buffer-name it)))
-                                  (buffer-list))))))
+                    (--filter (and (not (string-equal (buffer-name) (buffer-name it)))
+                                   (s-starts-with-p (buffer-name) (buffer-name it)))
+                              (buffer-list))))))
   :config
   (setq
    ediff-keep-variants t

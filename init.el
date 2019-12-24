@@ -8,6 +8,8 @@
 ;; TODO: pomidor
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
+;; TODO: update theming for avy
+
 
 ;;; Code:
 

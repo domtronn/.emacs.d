@@ -14,7 +14,6 @@
   (setq
    dashboard-startup-banner "~/.emacs.d/var/logo.png"
    dashboard-center-content t
-
    dashboard-set-heading-icons t
    dashboard-set-file-icons t
 
@@ -23,11 +22,8 @@
                      (bookmarks . 5))
 
    dashboard-footer "Lovingly handrolled"
-   dashboard-footer-icon (if (display-graphic-p)
-                           (all-the-icons-faicon "heart"
-                                                 :height 1.1
-                                                 :v-adjust -0.05
-                                                 :face 'error) "♡")
+   dashboard-footer-icon (if (not (display-graphic-p)) "♡"
+                           (all-the-icons-faicon "heart" :height 1.1 :v-adjust -0.05 :face 'error))
 
    dashboard-set-navigator (display-graphic-p)
    dashboard-navigator-buttons
@@ -50,10 +46,7 @@
           (all-the-icons-fileicon "font" :height 1.0 :v-adjust 0.0))
        "Font" "Change the font"
        (lambda (&rest _) (call-interactively 'set-frame-font)))
-
-      ))
-   )
-
+      )))
 
   (dashboard-setup-startup-hook)
   :hook (dashboard-mode
@@ -79,6 +72,13 @@
           doom-enable-bold t))
   )
 
+(use-package frame
+  :ensure nil
+  :config
+  (set-face-foreground 'window-divider (face-background 'solaire-default-face))
+  (setq window-divider-default-right-width 0
+        window-divider-default-bottom-width 0))
+
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :init
@@ -93,8 +93,7 @@
 
 (use-package shackle
   :commands shackle-display-buffer
-  :hook (after-init . shackle-mode)
-  )
+  :hook (after-init . shackle-mode))
 
 (use-package anzu :config (global-anzu-mode))
 
@@ -111,7 +110,8 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package rainbow-mode :defer t
-  :hook (prog-mode . rainbow-mode))
+  :hook ((prog-mode . rainbow-mode)
+         (help-mode . rainbow-mode)))
 
 (use-package display-line-numbers
   :ensure nil

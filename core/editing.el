@@ -108,6 +108,8 @@
          ("H-SPC" . kmacro-end-or-call-macro)
          ("H-e"   . kmacro-end-or-call-macro)))
 
+(delete-selection-mode 1)
+
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
