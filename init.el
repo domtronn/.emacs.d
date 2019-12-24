@@ -8,7 +8,6 @@
 ;; TODO: pomidor
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
-;; TODO: auto select new windows
 ;; TODO: multiple cursors
 
 ;;; Code:

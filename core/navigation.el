@@ -105,6 +105,10 @@
  ("M-p"     . backward-paragraph)
  ("C-x C-z" . delete-other-windows)
  ("s-o"     . other-window)
+
+ ("C-x C-3" . (lambda () (interactive) (split-window-right) (other-window 1)))
+ ("C-x C-2" . (lambda () (interactive) (split-window-below) (other-window 1)))
+
  )
 
 (provide 'navigation)
