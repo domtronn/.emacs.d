@@ -89,7 +89,9 @@
 (use-package counsel-projectile
   :after (projectile counsel)
   :commands counsel-projectile-switch-to-buffer
-  :bind (("C-x C-b" . counsel-projectile-switch-to-buffer)))
+  :bind (("C-x C-b" . counsel-projectile-switch-to-buffer)
+         ("C-o"     . counsel-projectile-find-file)
+         ("M-s"     . counsel-projectile-rg)))
 
 (use-package counsel-osx-app
   :if (memq window-system '(mac ns))
@@ -125,6 +127,8 @@
         ivy-posframe-width 120
         ivy-posframe-min-height 20
         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+  (bind-keys :map ivy-posframe-mode-map
+             ("C-'" . ivy-posframe-avy))
   (ivy-posframe-mode))
 
 (use-package ivy-rich
@@ -138,6 +142,10 @@
   :hook ((go-mode  . lsp-deferred)
          (js2-mode . lsp-deferred))
   :commands (lsp))
+
+(setq-default
+ enable-recursive-minibuffers t)
+
 
 (provide 'completion)
 ;;; completion.el ends here
