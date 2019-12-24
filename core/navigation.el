@@ -61,16 +61,23 @@
   :bind ("C-c '" . avy-flycheck-goto-error))
 
 (use-package dumb-jump
-  :bind (("s-." . dumb-jump-go)
-         ("M-." . dumb-jump-go)))
+  :hook (after-init . dumb-jump-mode)
+  :config
+  (setq dumb-jump-prefer-searcher 'rg
+        dumb-jump-selector 'ivy)
+  :bind (("M-." . dumb-jump-go)
+         ("M-?" . dumb-jump-go-prompt)
+         ("M-," . dumb-jump-back)))
 
 (use-package highlight-symbol
   :bind (("s->" . highlight-symbol-next)
          ("s-<" . highlight-symbol-prev)))
 
 (bind-keys
- ("M-n" . forward-paragraph)
- ("M-p" . backward-paragraph)
+ ("M-n"     . forward-paragraph)
+ ("M-p"     . backward-paragraph)
+ ("C-x C-z" . delete-other-windows)
+ ("s-o"     . other-window)
  )
 
 (provide 'navigation)
