@@ -26,6 +26,8 @@
          :map magit-mode-map
          ("o"                . magit-open-file-other-window)))
 
+(use-package forge :after magit)
+
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window))
   :config
