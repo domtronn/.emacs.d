@@ -107,10 +107,8 @@
   :config
   (ivy-mode 1)
   (setq ivy-height 20
-        ivy-count-format "(%d/%d) "
-        ivy-re-builders-alist
-        '((swiper . ivy--regex-plus)
-          (t      . ivy--regex-fuzzy)))
+        ivy-count-format "(%d/%d) ")
+
   :bind (:map ivy-minibuffer-map
          ("<backspace>" . delete-backward-char)
          ("C-d"         . delete-forward-char)))

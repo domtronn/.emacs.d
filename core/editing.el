@@ -43,7 +43,7 @@
 
 (use-package expand-region
   :bind ("M-q" . er/expand-region)
-  :defined (er/copy-string er/copy-symbol)
+  :defines (er/copy-string er/copy-symbol)
   :commands (er/mark-symbol er/mark-inside-quotes)
   :config
   (defmacro defcopy (name f)
@@ -84,7 +84,6 @@
   :bind (("s-d" . duplicate-thing)
          ("s-D" . duplicate-thing-replace)))
 
-(bind-keys
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
