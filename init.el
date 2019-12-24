@@ -8,8 +8,6 @@
 ;; TODO: pomidor
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
-;; TODO: update theming for avy
-
 
 ;;; Code:
 
@@ -41,6 +39,8 @@
                (async-start
                 `(lambda () '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
                 (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
+
+  (use-package restart-emacs :commands (restart-emacs))
 
   (use-package hide-mode-line
     :hook ((dashboard-mode lsp-ui-imenu-mode) . hide-mode-line-mode))
