@@ -33,24 +33,26 @@
         doom-modeline-indent-info nil
         doom-modeline-buffer-encoding nil
         doom-modeline-vcs-max-length 20
-        doom-modeline-major-mode-color-icon nil
-        ))
+        doom-modeline-major-mode-color-icon nil))
+
+(use-package shackle
+  :commands shackle-display-buffer
+  :hook (after-init . shackle-mode)
+  )
 
 (use-package anzu :config (global-anzu-mode))
 
 (use-package solaire-mode
   :config (solaire-global-mode 1)
-  :hook ((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode))
+  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
+         (minibuffer-setup . solaire-mode-in-minibuffer)
+         (after-load-theme . solaire-mode-swap-bg)))
 
 (use-package rainbow-delimiters :defer t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package rainbow-mode :defer t
   :hook (prog-mode . rainbow-mode))
-
-(use-package popwin
-
-  )
 
 (use-package display-line-numbers
   :ensure nil
