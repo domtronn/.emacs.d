@@ -28,26 +28,42 @@
          ("s-b" . sp-backward-sexp)
 
          ("s-p" . sp-backward-up-sexp)
-         ("s-n" . sp-down-sexp)
+         ("s-n" . sp-backward-down-sexp)
 
-         ("<s-backspace>"   . sp-splice-sexp-killing-around)
+         ("<s-backspace>"   . sp-splice-sexp)
          ("<S-s-backspace>" . sp-backward-kill-sexp)
          ("s--"             . sp-forward-slurp-sexp)
 
          :map emacs-lisp-mode-map
-         ("C-k" . sp-kill-whole-line)))
+         ("C-K" . sp-kill-whole-line)))
 
 (use-package embrace
   :bind (("C-," . embrace-add)
          ("C-<" . embrace-change)))
 
 (use-package expand-region
-  :bind ("M-q" . er/expand-region))
+  :bind ("M-q" . er/expand-region)
+  :defined (er/copy-string er/copy-symbol)
+  :commands (er/mark-symbol er/mark-inside-quotes)
+  :config
+  (defmacro defcopy (name f)
+    `(defun ,(intern (format "er/copy-%s" name)) ()
+       (interactive)
+       (save-excursion
+         (call-interactively ',f)
+         (kill-ring-save (region-beginning) (region-end)))))
+
+  (defcopy "string" er/mark-inside-quotes)
+  (defcopy "symbol" er/mark-symbol)
+
+  (bind-keys :prefix "C-c C-c"
+             :prefix-map clean-copy-map
+             ("q" . er/copy-string)
+             ("s" . er/copy-symbol)))
 
 (use-package electric-operator
   :commands (electric-operator-get-rules-for-mode
-             electric-operator-add-rules-for-mode
-             )
+             electric-operator-add-rules-for-mode)
   :hook (prog-mode . electric-operator-mode)
   :config
   (electric-operator-add-rules-for-mode
@@ -59,11 +75,20 @@
   :bind (("s-r" . vr/replace)
          ("s-R" . vr/query-replace)))
 
-(delete-selection-mode 1)
+(use-package duplicate-thing
+  :config
+  (defun duplicate-thing-replace ()
+    (interactive)
+    (call-interactively 'duplicate-thing)
+    (call-interactively 'vr/query-replace))
+  :bind (("s-d" . duplicate-thing)
+         ("s-D" . duplicate-thing-replace)))
 
+(bind-keys
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
+ ("s-d" . duplicate-line)
  ("C-j" . join-line))
 
 (provide 'editing)
