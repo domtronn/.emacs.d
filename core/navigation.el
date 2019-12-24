@@ -58,6 +58,23 @@
          ("M-?" . dumb-jump-go-prompt)
          ("M-," . dumb-jump-back)))
 
+(use-package wgrep
+  :hook (rg-mode . wgrep-rg-setup)
+  :config
+  (setq wgrep-auto-save-buffer t
+        wgrep-change-readonly-file t))
+
+(use-package rg
+  :config
+  (rg-enable-default-bindings)
+  (setq rg-executable "/usr/local/bin/rg"
+        rg-show-columns t
+        rg-show-header t
+        rg-group-result nil)
+  (bind-keys :map rg-mode-map
+             ("W" . wgrep-change-to-wgrep-mode)))
+
+
 (use-package highlight-symbol
   :bind (("s->" . highlight-symbol-next)
          ("s-<" . highlight-symbol-prev)))

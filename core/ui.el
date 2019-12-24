@@ -27,8 +27,7 @@
                            (all-the-icons-faicon "heart"
                                                  :height 1.1
                                                  :v-adjust -0.05
-                                                 :face 'error)
-                           "♡")
+                                                 :face 'error) "♡")
 
    dashboard-set-navigator (display-graphic-p)
    dashboard-navigator-buttons

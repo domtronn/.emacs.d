@@ -81,13 +81,13 @@
     (interactive)
     (call-interactively 'duplicate-thing)
     (call-interactively 'vr/query-replace))
+
   :bind (("s-d" . duplicate-thing)
          ("s-D" . duplicate-thing-replace)))
 
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
- ("s-d" . duplicate-line)
  ("C-j" . join-line))
 
 (provide 'editing)
