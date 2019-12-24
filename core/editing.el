@@ -96,6 +96,18 @@
          ("C-|"      . mc/vertical-align-with-space)
          ("C-i"      . mc/insert-numbers)))
 
+(use-package multi-line
+  :bind (("C-c [" . multi-line-single-line)
+         ("C-c ]" . multi-line)))
+
+(use-package kmacro
+  :ensure nil
+  :bind (("H-["   . kmacro-start-macro)
+         ("H-r"   . kmacro-start-macro)
+         ("H-]"   . kmacro-end-macro)
+         ("H-SPC" . kmacro-end-or-call-macro)
+         ("H-e"   . kmacro-end-or-call-macro)))
+
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
