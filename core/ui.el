@@ -69,11 +69,11 @@
     (setq doom-one-light-brighter-modeline t
           doom-spacegrey-brighter-modeline t
           doom-enable-italic t
-          doom-enable-bold t))
-  )
+          doom-enable-bold t)))
 
 (use-package frame
   :ensure nil
+  :after solaire-mode
   :config
   (set-face-foreground 'window-divider (face-background 'solaire-default-face))
   (setq window-divider-default-right-width 0
@@ -100,7 +100,6 @@
 (use-package solaire-mode
   :config (solaire-global-mode 1)
   :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
-         (minibuffer-setup . solaire-mode-in-minibuffer)
          (after-load-theme . solaire-mode-swap-bg)))
 
 (use-package hl-todo
@@ -126,14 +125,20 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;; Default theme
-(load-theme
- (if window-system
-     'kaolin-temple
-   'doom-moonlight))
+(load-theme (if window-system 'kaolin-temple 'doom-moonlight))
 
 (use-package prog-mode
   :ensure nil
   :hook (prog-mode . prettify-symbols-mode))
+
+(eval-after-load 'doom-modeline
+  (progn
+    (set-face-attribute 'region nil
+                        :foreground (face-background 'doom-modeline-bar)
+                        :background (face-background 'default))
+    (set-face-attribute 'highlight nil
+                        :foreground (face-background 'doom-modeline-bar)
+                        :background (face-background 'default))))
 
 ;; Custom sets
 (setq-default use-file-dialog nil

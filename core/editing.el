@@ -113,6 +113,7 @@
 (bind-keys
  ("C-K" . kill-whole-line)
  ("M-D" . backward-kill-word)
+ ("s-/" . comment-or-uncomment-region)
  ("C-j" . join-line))
 
 (provide 'editing)

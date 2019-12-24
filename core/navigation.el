@@ -70,6 +70,20 @@
   :bind ("H-l" . link-hint-open-link))
 
 (use-package avy
+  :config
+  (avy-setup-default)
+  (defun avy--set-face (face fg)
+    (set-face-attribute face nil :bold t
+                        :background (face-foreground fg)
+                        :foreground (face-background 'default)))
+
+  (eval-after-load 'ivy
+    (progn
+      (avy--set-face 'avy-lead-face 'ivy-minibuffer-match-face-2)
+      (avy--set-face 'avy-lead-face-0 'ivy-minibuffer-match-face-3)
+      (avy--set-face 'avy-lead-face-1 'ivy-minibuffer-match-face-4)
+      (avy--set-face 'avy-lead-face-2 'ivy-minibuffer-match-face-1)))
+
   :bind (("C-'" . avy-goto-char-timer)
          ("C-S-l" . avy-goto-line)))
 
@@ -108,8 +122,6 @@
 (use-package highlight-symbol
   :bind (("s->" . highlight-symbol-next)
          ("s-<" . highlight-symbol-prev)))
-
-
 
 (bind-keys
  ("M-n"     . forward-paragraph)
