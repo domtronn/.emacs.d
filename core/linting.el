@@ -39,10 +39,12 @@
 
   (advice-add 'lsp-ui-flycheck-enable :after
               '(lambda (&rest args)
-                 (flycheck-disable-checker 'lsp-ui))))
+                 (flycheck-disable-checker 'lsp-ui)
+                 (setq-local flycheck-checker nil))))
 
 (use-package whitespace-cleanup-mode
-  :config (global-whitespace-cleanup-mode))
+  :config (global-whitespace-cleanup-mode)
+  :bind ("C-c C-c" . whitespace-cleanup))
 
 (use-package format-all
   :init (define-prefix-command 'format-all-map)
@@ -53,9 +55,8 @@
 
 (use-package quickrun
   :commands quickrun
-  :init (define-prefix-command 'quickrun-map)
-  :config
-  (bind-keys ("C-x RET RET" . quickrun)))
+  :bind ("C-x RET RET" . quickrun)
+  )
 
 (provide 'linting)
 ;;; linting.el ends here
