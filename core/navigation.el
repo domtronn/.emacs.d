@@ -60,6 +60,14 @@
 (use-package avy-flycheck
   :bind ("C-c '" . avy-flycheck-goto-error))
 
+(use-package dumb-jump
+  :bind (("s-." . dumb-jump-go)
+         ("M-." . dumb-jump-go)))
+
+(use-package highlight-symbol
+  :bind (("s->" . highlight-symbol-next)
+         ("s-<" . highlight-symbol-prev)))
+
 (bind-keys
  ("M-n" . forward-paragraph)
  ("M-p" . backward-paragraph)

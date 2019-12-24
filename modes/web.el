@@ -12,6 +12,7 @@
                 ("node" . rjsx-mode))
   :hook (js2-mode . js2-mode-hide-warnings-and-errors)
   :config
+  (unbind-key "M-." js2-mode-map)
   (setq js-indent-level 2
         js2-basic-offset 2))
 
