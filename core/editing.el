@@ -7,6 +7,9 @@
          ("C-S-d"       . smart-hungry-delete-backward-char))
   :config (smart-hungry-delete-add-default-hooks))
 
+(use-package smart-newline
+  :bind ("RET" . smart-newline))
+
 (use-package move-text
   :bind (("s-P" . move-text-up)
          ("s-N" . move-text-down)))
