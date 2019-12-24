@@ -70,6 +70,10 @@
      'kaolin-temple
    'doom-moonlight))
 
+(use-package prog-mode
+  :ensure nil
+  :hook (prog-mode . prettify-symbols-mode))
+
 ;; Custom sets
 (setq-default use-file-dialog nil
               use-dialog-box nil
