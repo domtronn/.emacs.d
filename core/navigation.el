@@ -10,6 +10,11 @@
         uniquify-after-kill-buffer-p t
         uniquify-ignore-buffers-re "^\\*"))
 
+(use-package recentf
+  :ensure nil
+  :hook (after-init . recentf-mode)
+  :init (setq recentf-max-saved-items 300))
+
 (use-package projectile
   :config
   (projectile-mode)
@@ -31,6 +36,19 @@
 
 (use-package treemacs-magit :after treemacs magit)
 (use-package treemacs-projectile :after treemacs projectile)
+
+(use-package undo-tree
+  :defines recentf-exclude
+  :hook (after-init . global-undo-tree-mode)
+  :init
+  (setq undo-tree-visualizer-timestamps t
+        undo-tree-enable-undo-in-region nil
+        undo-tree-auto-save-history nil
+        undo-tree-history-directory-alist
+        `(("."      . ,(locate-user-emacs-file "var/undo-tree-hist/"))))
+  :bind (("C-c C-u" . undo-tree-visualize)
+         ("C-_"     . undo-tree-undo)
+         ("C-+"     . undo-tree-redo)))
 
 (use-package winum
   :init
@@ -58,6 +76,10 @@
          ("M-?" . dumb-jump-go-prompt)
          ("M-," . dumb-jump-back)))
 
+(use-package goto-chg
+  :bind (("s-," . goto-last-change)
+         ("s-." . goto-last-change-reverse)))
+
 (use-package wgrep
   :hook (rg-mode . wgrep-rg-setup)
   :config
@@ -73,7 +95,6 @@
         rg-group-result nil)
   (bind-keys :map rg-mode-map
              ("W" . wgrep-change-to-wgrep-mode)))
-
 
 (use-package highlight-symbol
   :bind (("s->" . highlight-symbol-next)

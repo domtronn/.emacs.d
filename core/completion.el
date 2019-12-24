@@ -125,7 +125,7 @@
         ivy-posframe-width 120
         ivy-posframe-min-height 20
         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  (bind-keys :map ivy-posframe-mode-map
+  (bind-keys :map ivy-minibuffer-map
              ("C-'" . ivy-posframe-avy))
   (ivy-posframe-mode))
 
@@ -143,7 +143,6 @@
 
 (setq-default
  enable-recursive-minibuffers t)
-
 
 (provide 'completion)
 ;;; completion.el ends here

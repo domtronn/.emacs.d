@@ -10,7 +10,6 @@
 ;; TODO: kubernets porcelain
 ;; TODO: auto select new windows
 ;; TODO: multiple cursors
-;; TODO: undo tree
 
 ;;; Code:
 
