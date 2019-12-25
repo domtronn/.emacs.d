@@ -53,10 +53,11 @@
          . (lambda ()
              (bind-keys
               :map dashboard-mode-map
+              ("SPC" . widget-forward)
               ("C-n" . next-line)
               ("C-p" . previous-line)
-              ("t" . counsel-load-theme)
-              ("f" . set-frame-font)))))
+              ("t"   . counsel-load-theme)
+              ("f"   . set-frame-font)))))
 
 (use-package kaolin-themes :defer t)
 
@@ -89,7 +90,14 @@
         doom-modeline-indent-info nil
         doom-modeline-buffer-encoding nil
         doom-modeline-vcs-max-length 20
-        doom-modeline-major-mode-color-icon nil))
+        doom-modeline-major-mode-color-icon nil)
+  :config
+  (set-face-attribute 'region nil
+                      :foreground (face-background 'doom-modeline-bar)
+                      :background (face-background 'default))
+  (set-face-attribute 'highlight nil
+                      :foreground (face-background 'doom-modeline-bar)
+                      :background (face-background 'default)))
 
 (use-package shackle
   :commands shackle-display-buffer
@@ -130,15 +138,6 @@
 (use-package prog-mode
   :ensure nil
   :hook (prog-mode . prettify-symbols-mode))
-
-(eval-after-load 'doom-modeline
-  (progn
-    (set-face-attribute 'region nil
-                        :foreground (face-background 'doom-modeline-bar)
-                        :background (face-background 'default))
-    (set-face-attribute 'highlight nil
-                        :foreground (face-background 'doom-modeline-bar)
-                        :background (face-background 'default))))
 
 ;; Custom sets
 (setq-default use-file-dialog nil
