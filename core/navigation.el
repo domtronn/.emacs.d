@@ -119,6 +119,14 @@
   (bind-keys :map rg-mode-map
              ("W" . wgrep-change-to-wgrep-mode)))
 
+(use-package auto-highlight-symbol
+  :after (avy ivy)
+  :hook (prog-mode . auto-highlight-symbol-mode)
+  :config
+  (avy--set-face 'ahs-plugin-defalt-face 'ivy-minibuffer-match-face-2)
+  (avy--set-face 'ahs-definition-face 'ivy-minibuffer-match-face-1)
+  (avy--set-face 'ahs-face 'ivy-minibuffer-match-face-1))
+
 (use-package highlight-symbol
   :bind (("s->" . highlight-symbol-next)
          ("s-<" . highlight-symbol-prev)))
