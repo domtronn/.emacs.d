@@ -26,5 +26,8 @@
                       :foreground (face-attribute 'success :foreground)
                       :inherit 'solaire-default-face))
 
+(use-package auto-compile
+  :hook (emacs-lisp-mode . auto-compile-on-save-mode))
+
 (provide 'elisp)
 ;;; elisp.el ends here
