@@ -18,7 +18,7 @@
         company-tooltip-limit 20
         company-tooltip-align-annotations t
         company-idle-delay 0
-        company-minimum-prefix-length 2
+        company-minimum-prefix-length 3
         )
   :hook (after-init    . global-company-mode)
   :bind (("<kp-enter>" . company-complete)
@@ -29,12 +29,15 @@
          ("C-n"        . company-select-next)
          ("C-p"        . company-select-previous)
          ))
-
 (use-package company-prescient
   :init (company-prescient-mode 1))
 
 (use-package company-lsp
-  :config (push 'company-lsp company-backends))
+  :config (add-to-list 'company-backends 'company-lsp))
+
+(use-package company-tabnine
+  :after company
+  :config (add-to-list 'company-backends 'company-tabnine))
 
 (use-package company-emoji
   :after company
@@ -42,6 +45,8 @@
 
 (use-package company-box
   :hook (company-mode . company-box-mode)
+  :bind (:map company-active-map
+              ("M-h" . company-box-doc-manually))
   :config
   (setq company-box-icons-alist 'company-box-icons-all-the-icons
         company-box-icons-all-the-icons
