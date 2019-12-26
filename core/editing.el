@@ -111,6 +111,9 @@
          ("H-SPC" . kmacro-end-or-call-macro)
          ("H-e"   . kmacro-end-or-call-macro)))
 
+(use-package sudo-edit
+  :commands (sudo-edit))
+
 (delete-selection-mode 1)
 
 (bind-keys
