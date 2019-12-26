@@ -149,6 +149,16 @@
 (use-package hl-todo
   :hook (prog-mode . hl-todo-mode))
 
+(use-package focus
+  :bind (("H-f" . focus-mode)
+         :map change-view-map
+         ("f" . focus-mode)))
+
+(use-package olivetti
+  :bind (("H-w" . olivetti-mode)
+         :map change-view-map
+         ("w" . olivetti-mode)))
+
 (use-package rainbow-delimiters :defer t
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -158,7 +168,7 @@
 
 (use-package display-line-numbers
   :ensure nil
-  :hook (prog-mode . display-line-numbers-mode)
+  :hook ((prog-mode . display-line-numbers-mode))
   :config
   (setq display-line-numbers-width 3)
   (let ((bg (face-attribute 'solaire-default-face :background)))
@@ -169,7 +179,7 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;; Default theme
-(load-theme (if window-system 'kaolin-temple 'doom-moonlight))
+(load-theme (if window-system 'kaolin-dark 'doom-moonlight))
 
 (use-package prog-mode
   :ensure nil

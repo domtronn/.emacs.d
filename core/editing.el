@@ -42,7 +42,7 @@
          ("C-<" . embrace-change)))
 
 (use-package expand-region
-  :demand
+  :demand t
   :bind (("M-q" . er/expand-region)
          :map clean-copy-map
          ("q" . er/copy-string)

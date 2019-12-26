@@ -46,11 +46,8 @@
 
 (use-package whitespace-cleanup-mode
   :hook (prog-mode . whitespace-cleanup-mode)
-  :init (define-prefix-command 'clean-copy-map)
-  :config
-  (bind-keys :prefix "C-c C-c"
-             :prefix-map clean-copy-map
-             ("C-c" . whitespace-cleanup)))
+  :bind (:map clean-copy-map
+              ("C-c" . whitespace-cleanup)))
 
 (use-package format-all
   :init (define-prefix-command 'format-all-map)

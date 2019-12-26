@@ -45,7 +45,10 @@
                 `(lambda () '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
                 (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
 
-  (use-package restart-emacs :commands (restart-emacs))
+  (use-package restart-emacs
+    :commands (restart-emacs)
+    :bind (("H-q" . kill-emacs)
+           ("H-Q" . restart-emacs)))
 
   (use-package hide-mode-line
     :hook ((dashboard-mode lsp-ui-imenu-mode reb-mode) . hide-mode-line-mode))
@@ -60,6 +63,9 @@
 
   (use-package no-littering)
   (use-package try :commands (try))
+
+  (bind-keys :prefix-map clean-copy-map :prefix "C-c C-c" :prefix-docstring "Clean whitespace or copy strings")
+  (bind-keys :prefix-map change-view-map :prefix "C-c v" :prefix-docstring "Modify the view of the buffer")
 
   ;; Load core modules
   (use-package ui         :load-path "core")
