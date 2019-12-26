@@ -146,11 +146,11 @@
 
 (use-package prog-mode
   :ensure nil
-  :hook (prog-mode . prettify-symbols-mode))
+  :hook ((prog-mode . prettify-symbols-mode)
+         (prog-mode . (lambda () (fringe-mode '(1 . 1))))))
 
 ;; Custom sets
 (display-battery-mode 1)
-(set-window-fringes nil 2 0)
 
 (setq-default use-file-dialog nil
               use-dialog-box nil
