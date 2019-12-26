@@ -64,7 +64,24 @@
          ([remap move-end-of-line]       . mwim-end-of-code-or-line)))
 
 (use-package link-hint
-  :bind ("H-l" . link-hint-open-link))
+  :bind (("H-l" . link-hint-open-link)
+         :map avy-map
+         ("l" . link-hint-open-link)))
+
+(use-package howdoyou
+  :bind (:map question-map
+              ("h" . howdoyou-query)
+              :map howdoyou-mode-map
+              ("n" . next-line)
+              ("f" . forward-char)
+              ("p" . previous-line)
+              ("b" . backward-char)))
+
+(use-package google-this
+  :bind (:map question-map
+              ("s" . google-this)
+              :map avy-map
+              ("s" . google-this)))
 
 (defun --set-face (face fg)
   "Rebind FACE to be FG on background FG."
@@ -76,17 +93,23 @@
   :config
   (avy-setup-default)
   (eval-after-load 'ivy
-    (progn
+    (progns
       (--set-face 'avy-lead-face 'ivy-minibuffer-match-face-2)
       (--set-face 'avy-lead-face-0 'ivy-minibuffer-match-face-3)
       (--set-face 'avy-lead-face-1 'ivy-minibuffer-match-face-4)
       (--set-face 'avy-lead-face-2 'ivy-minibuffer-match-face-1)))
 
   :bind (("C-'" . avy-goto-char-timer)
-         ("C-S-l" . avy-goto-line)))
+         ("C-S-l" . avy-goto-line)
+         :map avy-map
+         ("g" . avy-goto-line)
+         ("'" . avy-goto-char-timer)
+         ("c" . avy-goto-char)))
 
 (use-package avy-flycheck
-  :bind ("C-c '" . avy-flycheck-goto-error))
+  :bind (("C-c ;" . avy-flycheck-goto-error)
+         :map avy-map
+         (";" . avy-flycheck-goto-error)))
 
 (use-package dumb-jump
   :hook (after-init . dumb-jump-mode)
@@ -95,7 +118,9 @@
         dumb-jump-selector 'ivy)
   :bind (("M-." . dumb-jump-go)
          ("M-?" . dumb-jump-go-prompt)
-         ("M-," . dumb-jump-back)))
+         ("M-," . dumb-jump-back)
+         :map question-map
+         ("j" . dumb-jump-go-prompt)))
 
 (use-package goto-chg
   :bind (("s-," . goto-last-change)
