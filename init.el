@@ -8,6 +8,9 @@
 ;; TODO: pomidor
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
+;; TODO: dired extensions
+;; TODO: fix company box
+;; TODO; yasnippet
 
 ;;; Code:
 
@@ -27,8 +30,9 @@
   (package-initialize)
 
   (eval-when-compile
-    (require 'use-package)
-    (setq use-package-always-ensure t))
+    (setq use-package-always-ensure t
+          use-package-enable-imenu-support t)
+    (require 'use-package))
 
   (use-package exec-path-from-shell
     :if (memq window-system '(mac ns))
@@ -46,9 +50,12 @@
     :hook ((dashboard-mode lsp-ui-imenu-mode) . hide-mode-line-mode))
 
   (use-package esup :commands (esup))
-  (use-package spu
-    :defer 5
-    :config (spu-package-upgrade-daily))
+  (use-package auto-package-update
+    :config
+    (setq auto-package-update-interval 7
+          auto-package-update-delete-old-versions t
+          auto-package-update-hide-results t)
+    (auto-package-update-maybe))
 
   (use-package no-littering)
   (use-package try :commands (try))
