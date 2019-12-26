@@ -29,10 +29,6 @@
          ("C-n"        . company-select-next)
          ("C-p"        . company-select-previous)))
 
-(use-package company-prescient
-  :disabled
-  :init (company-prescient-mode 1))
-
 (use-package company-lsp
   :custom (company-lsp-cache-candidates 'auto)
   :config (add-to-list 'company-backends 'company-lsp))
@@ -42,32 +38,9 @@
   :custom (company-tabnine-max-num-results 9)
   :bind (:map company-active-map
               ("M-q" . company-other-backend))
-  :hook (lsp-after-open
-         . (lambda ()
-             (setq company-tabnine-max-num-results 3)
-             (add-to-list 'company-transformers 'company-tabnine--sort t)
-             (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))))
   :config
-  (defun company-tabnine--sort (candidates)
-    (if (or (functionp company-backend)
-            (not (and (listp company-backend) (memq 'company-tabnine company-backend))))
-        candidates
-      (let ((candidates-table (make-hash-table :test #'equal))
-            candidates-lsp
-            candidates-tabnine)
-        (dolist (candidate candidates)
-          (if (eq (get-text-property 0 'company-backend candidate)
-                  'company-tabnine)
-              (unless (gethash candidate candidates-table)
-                (push candidate candidates-tabnine))
-            (push candidate candidates-lsp)
-            (puthash candidate t candidates-table)))
-        (setq candidates-lsp (nreverse candidates-lsp))
-        (setq candidates-tabnine (nreverse candidates-tabnine))
-        (nconc (seq-take candidates-tabnine 3)
-               (seq-take candidates-lsp 6)))))
   (add-to-list 'company-backends 'company-tabnine)
-  (setq company-tabnine-always-trigger nil))
+  (setq company-tabnine-always-trigger t))
 
 (use-package company-emoji
   :after company
@@ -211,8 +184,7 @@
 (use-package which-key
   :config
   (which-key-setup-side-window-right)
-  (which-key-mode)
-  )
+  (which-key-mode))
 
 ;; LSP servers
 ;; go - GO111MODULE=on go get golang.org/x/tools/gopls@latest

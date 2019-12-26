@@ -42,10 +42,15 @@
          ("C-<" . embrace-change)))
 
 (use-package expand-region
-  :bind ("M-q" . er/expand-region)
-  :defines (er/copy-string er/copy-symbol)
+  :demand
+  :bind (("M-q" . er/expand-region)
+         :map clean-copy-map
+         ("q" . er/copy-string)
+         ("s" . er/copy-symbol)
+         ("p" . er/copy-inside-pairs))
+  :defines (er/copy-string er/copy-symbol er/copy-inside-pairs)
   :commands (er/mark-symbol er/mark-inside-quotes)
-  :config
+  :init
   (defmacro defcopy (name f)
     `(defun ,(intern (format "er/copy-%s" name)) ()
        (interactive)
@@ -53,13 +58,10 @@
          (call-interactively ',f)
          (kill-ring-save (region-beginning) (region-end)))))
 
+  :config
+  (defcopy "inside-pairs" er/mark-inside-pairs)
   (defcopy "string" er/mark-inside-quotes)
-  (defcopy "symbol" er/mark-symbol)
-
-  (bind-keys :prefix "C-c C-c"
-             :prefix-map clean-copy-map
-             ("q" . er/copy-string)
-             ("s" . er/copy-symbol)))
+  (defcopy "symbol" er/mark-symbol))
 
 (use-package electric-operator
   :commands (electric-operator-get-rules-for-mode
