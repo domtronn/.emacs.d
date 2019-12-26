@@ -17,9 +17,9 @@
   (setq company-show-numbers t
         company-tooltip-limit 20
         company-tooltip-align-annotations t
-        company-idle-delay 0
+        company-idle-delay 0.2
         company-minimum-prefix-length 3
-        )
+        company-require-match 'never)
   :hook (after-init    . global-company-mode)
   :bind (("<kp-enter>" . company-complete)
          ("M-/"        . company-complete)
@@ -39,9 +39,33 @@
 
 (use-package company-tabnine
   :after company
+  :custom (company-tabnine-max-num-results 9)
   :bind (:map company-active-map
               ("M-q" . company-other-backend))
+  :hook (lsp-after-open
+         . (lambda ()
+             (setq company-tabnine-max-num-results 3)
+             (add-to-list 'company-transformers 'company-tabnine--sort t)
+             (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))))
   :config
+  (defun company-tabnine--sort (candidates)
+    (if (or (functionp company-backend)
+            (not (and (listp company-backend) (memq 'company-tabnine company-backend))))
+        candidates
+      (let ((candidates-table (make-hash-table :test #'equal))
+            candidates-lsp
+            candidates-tabnine)
+        (dolist (candidate candidates)
+          (if (eq (get-text-property 0 'company-backend candidate)
+                  'company-tabnine)
+              (unless (gethash candidate candidates-table)
+                (push candidate candidates-tabnine))
+            (push candidate candidates-lsp)
+            (puthash candidate t candidates-table)))
+        (setq candidates-lsp (nreverse candidates-lsp))
+        (setq candidates-tabnine (nreverse candidates-tabnine))
+        (nconc (seq-take candidates-tabnine 3)
+               (seq-take candidates-lsp 6)))))
   (add-to-list 'company-backends 'company-tabnine)
   (setq company-tabnine-always-trigger nil))
 
@@ -54,6 +78,30 @@
   :bind (:map company-active-map
               ("M-h" . company-box-doc-manually))
   :config
+  (defun company-box--common-make-line (candidate)
+    (-let* (((candidate annotation len-c len-a backend) candidate)
+            (color (company-box--get-color backend))
+            ((c-color a-color i-color s-color) (company-box--resolve-colors color))
+            (icon-string (and company-box--with-icons-p (company-box--add-icon candidate)))
+            (candidate-string (concat (propertize (or company-common "") 'face 'company-tooltip-common)
+                                      (substring (propertize candidate 'face 'company-box-candidate) (length company-common) nil)))
+            (align-string (when annotation
+                            (concat " " (and company-tooltip-align-annotations
+                                             (propertize " " 'display `(space :align-to (- right-fringe ,(or len-a 0) 1)))))))
+            (space company-box--space)
+            (icon-p company-box-enable-icon)
+            (annotation-string (and annotation (propertize annotation 'face 'company-box-annotation)))
+            (line (concat (unless (or (and (= space 2) icon-p) (= space 0))
+                            (propertize " " 'display `(space :width ,(if (or (= space 1) (not icon-p)) 1 0.75))))
+                          (company-box--apply-color icon-string i-color)
+                          (company-box--apply-color candidate-string c-color)
+                          align-string
+                          (company-box--apply-color annotation-string a-color)))
+            (len (length line)))
+      (add-text-properties 0 len (list 'company-box--len (+ len-c len-a)
+                                       'company-box--color s-color)
+                           line)
+      line))
   (setq company-box-icons-alist 'company-box-icons-all-the-icons
         company-box-icons-all-the-icons
         `((Unknown       . ,(all-the-icons-material "find_in_page" :height 0.85 :v-adjust -0.2))
@@ -83,7 +131,10 @@
           (Operator      . ,(all-the-icons-material "control_point" :height 0.85 :v-adjust -0.2))
           (TypeParameter . ,(all-the-icons-faicon "arrows" :height 0.8 :v-adjust -0.05))
           (Template      . ,(all-the-icons-material "format_align_center" :height 0.85 :v-adjust -0.2)))
-        ))
+        )
+
+  (advice-add 'company-box--make-line :override 'company-box--common-make-line)
+  )
 
 (use-package counsel
   :after ivy

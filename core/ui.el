@@ -57,7 +57,7 @@
               ("C-n" . next-line)
               ("C-p" . previous-line)
               ("t"   . counsel-load-theme)
-              ("f"   . set-frame-font)))))
+              ("f"   . ivy-set-font)))))
 
 (use-package kaolin-themes :defer t
   :custom (kaolin-themes-underline-wave nil))
