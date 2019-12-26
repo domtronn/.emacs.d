@@ -104,7 +104,41 @@
                       :background (face-background 'default))
   (set-face-attribute 'highlight nil
                       :foreground (face-background 'doom-modeline-bar)
-                      :background (face-background 'default)))
+                      :background (face-background 'default))
+
+  (eval-when-compile
+    'company
+    (doom-modeline-def-segment company-backend
+      "Display the current company backend. `company-backend'."
+      (when (company--active-p)
+        (format "%s"
+                (--map (s-replace "company-" "" (format "%s" it))
+                       (if (listp company-backend) company-backend (list company-backend)))))))
+
+  (doom-modeline-def-env node
+    :hooks   '(js2-mode-hook rjsx-mode-hook javascript-mode-hook)
+    :command (lambda () (list "node" "--version"))
+    :parser  (lambda (line) (s-join "." (butlast (split-string (cadr (split-string (s-trim line) "v")) "\\.") 1))))
+
+  (doom-modeline-def-segment buffer-info
+    "Overwrite of buffer info to not include the icon"
+    (concat
+     (doom-modeline--buffer-state-icon)
+     (doom-modeline--buffer-name)))
+
+  (doom-modeline-def-segment buffer-type
+    "Buffer icon and version if it exists"
+    (concat
+     (doom-modeline-spc)
+     (doom-modeline--buffer-mode-icon)
+     (when (and doom-modeline-env-version doom-modeline-env--version)
+       (propertize
+        (format "%s " doom-modeline-env--version)
+        'face '(:height 0.7)))))
+
+  (doom-modeline-def-modeline 'main
+    '(bar workspace-name window-number modals matches buffer-type buffer-info remote-host buffer-position word-count selection-info)
+    '(company-backend misc-info persp-name battery debug lsp input-method buffer-encoding  process vcs checker)))
 
 (use-package shackle
   :commands shackle-display-buffer
