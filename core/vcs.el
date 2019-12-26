@@ -55,6 +55,29 @@
    ediff-split-window-function 'split-window-horizontally
    ediff-window-setup-function 'ediff-setup-windows-plain))
 
+(use-package git-messenger
+  :hook (prog-mode . git-messenger:title-mode)
+  :config
+  (defun git-messenger:title ()
+    "Get the commit to be formatted into the title."
+    (let* ((vcs (git-messenger:find-vcs))
+           (file (buffer-file-name (buffer-base-buffer)))
+           (line (line-number-at-pos))
+           (commit-info (git-messenger:commit-info-at-line vcs file line))
+           (commit-id (car commit-info))
+           (commit-author (cdr commit-info))
+           (commit-msg (s-trim (git-messenger:commit-message vcs commit-id))))
+
+      (if (s-contains-p "not yet committed" commit-msg)
+          (format "%s" commit-msg)
+        (format "VC: %s - @%s" commit-msg commit-author))
+      ))
+
+  (define-minor-mode git-messenger:title-mode
+    "Minor mode for showing git message in the frame title."
+    (setq frame-title-format `(:eval (git-messenger:title))))
+  )
+
 (provide 'vcs)
 
 ;;; vcs.el ends here

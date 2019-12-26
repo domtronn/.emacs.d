@@ -9,8 +9,9 @@
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
 ;; TODO: dired extensions
-;; TODO: fix company box
-;; TODO; yasnippet
+;; TODO: yasnippet
+;; TODO: font scaling
+;; FIXME: better duplicate line  or region
 
 ;;; Code:
 
