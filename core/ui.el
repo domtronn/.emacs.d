@@ -45,7 +45,7 @@
       (,(when (display-graphic-p)
           (all-the-icons-fileicon "font" :height 1.0 :v-adjust 0.0))
        "Font" "Change the font"
-       (lambda (&rest _) (call-interactively 'set-frame-font)))
+       (lambda (&rest _) (call-interactively 'ivy-set-font)))
       )))
 
   (dashboard-setup-startup-hook)
@@ -127,7 +127,10 @@
          (help-mode . rainbow-mode)))
 
 (use-package diff-hl
-  :config (diff-hl-flydiff-mode 1))
+  :hook (prog-mode . diff-hl-mode)
+  :config
+  (diff-hl-flydiff-mode 1)
+  (diff-hl-mode 1))
 
 (use-package display-line-numbers
   :ensure nil
@@ -147,11 +150,13 @@
 (use-package prog-mode
   :ensure nil
   :hook ((prog-mode . prettify-symbols-mode)
-         (prog-mode . (lambda () (fringe-mode '(1 . 1))))))
+         (prog-mode . (lambda () (fringe-mode '(1 . 0))))))
 
 ;; Custom sets
 (display-battery-mode 1)
 
+(fringe-mode '(1 . 0))
+(set-window-fringes nil 0 0)
 (setq-default use-file-dialog nil
               use-dialog-box nil
               inhibit-startup-screen t

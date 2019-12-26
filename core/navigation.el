@@ -25,7 +25,7 @@
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window))
   :config
-  (advice-add 'doom-themes-hide-fringes :after (lambda () (set-window-fringes nil 8 0)))
+  (advice-add 'doom-themes-hide-fringes :after (lambda () (set-window-fringes nil 4 0)))
   (with-no-warnings
     (treemacs-follow-mode)
     (treemacs-filewatch-mode)

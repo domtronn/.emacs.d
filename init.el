@@ -47,7 +47,9 @@
   (use-package restart-emacs :commands (restart-emacs))
 
   (use-package hide-mode-line
-    :hook ((dashboard-mode lsp-ui-imenu-mode) . hide-mode-line-mode))
+    :hook ((dashboard-mode
+            lsp-ui-imenu-mode
+            reb-mode) . hide-mode-line-mode))
 
   (use-package esup :commands (esup))
   (use-package auto-package-update
