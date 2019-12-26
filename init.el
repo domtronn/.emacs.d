@@ -12,7 +12,6 @@
 ;; TODO: yasnippet
 ;; TODO: font scaling
 ;; FIXME: better duplicate line  or region
-;; TODO: company backend in modeline
 
 ;;; Code:
 

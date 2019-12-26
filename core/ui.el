@@ -115,11 +115,6 @@
                 (--map (s-replace "company-" "" (format "%s" it))
                        (if (listp company-backend) company-backend (list company-backend)))))))
 
-  (doom-modeline-def-env node
-    :hooks   '(js2-mode-hook rjsx-mode-hook javascript-mode-hook)
-    :command (lambda () (list "node" "--version"))
-    :parser  (lambda (line) (s-join "." (butlast (split-string (cadr (split-string (s-trim line) "v")) "\\.") 1))))
-
   (doom-modeline-def-segment buffer-info
     "Overwrite of buffer info to not include the icon"
     (concat

@@ -29,5 +29,11 @@
   :commands (global-auto-rename-tag-mode)
   :config (global-auto-rename-tag-mode t))
 
+(eval-after-load 'doom-modeline
+  (doom-modeline-def-env node
+    :hooks   '(js2-mode-hook rjsx-mode-hook javascript-mode-hook)
+    :command (lambda () (list "node" "--version"))
+    :parser  (lambda (line) (s-join "." (butlast (split-string (cadr (split-string (s-trim line) "v")) "\\.") 1)))))
+
 (provide 'web)
 ;;; web.el ends here
