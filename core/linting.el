@@ -13,6 +13,8 @@
   (setq flycheck-emacs-lisp-load-path 'inherit
         flycheck-check-syntax-automatically '(save mode-enabled)
         flycheck-disabled-checkers '(javscript-jshint scss))
+  (set-face-background 'flycheck-fringe-warning (face-foreground 'flycheck-fringe-warning))
+  (set-face-background 'flycheck-fringe-error (face-foreground 'flycheck-fringe-error))
   (bind-keys :prefix "C-c e"
              :prefix-map flycheck-keymap-prefix
              ("l" . flycheck-list-errors)

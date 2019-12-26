@@ -27,17 +27,23 @@
          ("<tab>"      . company-complete-common-or-cycle)
          ("<backtab>"  . company-select-previous)
          ("C-n"        . company-select-next)
-         ("C-p"        . company-select-previous)
-         ))
+         ("C-p"        . company-select-previous)))
+
 (use-package company-prescient
+  :disabled
   :init (company-prescient-mode 1))
 
 (use-package company-lsp
+  :custom (company-lsp-cache-candidates 'auto)
   :config (add-to-list 'company-backends 'company-lsp))
 
 (use-package company-tabnine
   :after company
-  :config (add-to-list 'company-backends 'company-tabnine))
+  :bind (:map company-active-map
+              ("M-q" . company-other-backend))
+  :config
+  (add-to-list 'company-backends 'company-tabnine)
+  (setq company-tabnine-always-trigger nil))
 
 (use-package company-emoji
   :after company
@@ -124,6 +130,7 @@
 (use-package ivy-posframe
   :if window-system
   :after ivy
+  :hook (ivy-posframe-mode . (lambda () (setq-local fringe-mode 0)))
   :config
   (setq ivy-posframe-border-width 20
         ivy-posframe-min-width 60
@@ -152,8 +159,8 @@
          (js2-mode . lsp-deferred))
   :commands (lsp))
 
-(setq-default
- enable-recursive-minibuffers t)
+(bind-keys
+ ("C-M-/" . hippie-expand))
 
 (provide 'completion)
 ;;; completion.el ends here

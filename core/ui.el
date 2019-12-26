@@ -73,10 +73,15 @@
           doom-enable-bold t)))
 
 (use-package frame
-  :ensure nil
   :after solaire-mode
+  :ensure nil
+  :hook (after-load-theme
+         . (lambda ()
+             (set-face-foreground 'window-divider (face-background 'default))
+             (set-face-foreground 'vertical-border (face-background 'default))))
   :config
-  (set-face-foreground 'window-divider (face-background 'solaire-default-face))
+  (set-face-foreground 'window-divider (face-background 'default))
+  (set-face-foreground 'vertical-border (face-background 'default))
   (setq window-divider-default-right-width 0
         window-divider-default-bottom-width 0))
 
@@ -91,6 +96,7 @@
         doom-modeline-buffer-encoding nil
         doom-modeline-vcs-max-length 20
         doom-modeline-major-mode-color-icon nil)
+
   :config
   (set-face-attribute 'region nil
                       :foreground (face-background 'doom-modeline-bar)
@@ -120,6 +126,9 @@
   :hook ((prog-mode . rainbow-mode)
          (help-mode . rainbow-mode)))
 
+(use-package diff-hl
+  :config (diff-hl-flydiff-mode 1))
+
 (use-package display-line-numbers
   :ensure nil
   :hook (prog-mode . display-line-numbers-mode)
@@ -140,12 +149,14 @@
   :hook (prog-mode . prettify-symbols-mode))
 
 ;; Custom sets
+(display-battery-mode 1)
+(set-window-fringes nil 2 0)
+
 (setq-default use-file-dialog nil
               use-dialog-box nil
               inhibit-startup-screen t
               inhibit-startup-echo-area-message t
 
-              fringe-mode 0
               truncate-lines t
 
               ns-use-thin-smoothing t

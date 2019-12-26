@@ -16,6 +16,8 @@ xkcd
 *-cli
 *.cask
 
+*.elc
+
 *bookmarks*
 *ede-projects*
 

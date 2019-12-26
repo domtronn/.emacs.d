@@ -5,6 +5,10 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(blink-cursor-mode nil)
+ '(compilation-always-kill t)
+ '(compilation-ask-about-save nil)
+ '(compilation-scroll-output t)
+ '(create-lockfiles nil)
  '(cursor-type (quote (bar . 1)))
  '(custom-safe-themes
    (quote
@@ -16,7 +20,7 @@
  '(ns-function-modifier (quote hyper))
  '(package-selected-packages
    (quote
-    (auto-highlight-symbol auto-highliht-symbol company-tabnine auto-compile doom-themes restart-emacs link-hint which-key-posframe multi-line multiple-cursors goto-chg rg git-link git-timemachine magit-todos git-messenger browse-at-remote duplicate-thing whole-line-or-region shackle symbol-overlay smart-newline eros highlight-symbol company-emoji comapny-emoji spu forge dumb-jump mwim avy-flycheck avy-jump tide visual-regexp-steroids go-fill-struct electric-operator embrace auto-rename-tag rjsx-mode js2-mode json-mode counsel-projectile smartparens-config smartparens move-text quickrun smart-hungry-delete format-all whitespace-cleanup-mode winum uniquify lsp-ui flycheck-title flycheck-inline flycheck company-lsp company-box company-posframe company-quickhelp counsel-osx-app amx ivy-rich ivy-prescient ivy-posframe ivy-posframe-font company-prescient treemacs-projectile treemacs-magit treemacs magit projectile ivy-hydra all-the-icons highlight-parentheses highlight-quoted highlight-defined go-eldoc go-mode lsp-mode counsel smex company exec-path-from-shell dashboard esup use-package)))
+    (diff-hl diff-hl-mode solaire-moden auto-package-update sudo-edit auto-highlight-symbol auto-highliht-symbol company-tabnine auto-compile doom-themes restart-emacs link-hint which-key-posframe multi-line multiple-cursors goto-chg rg git-link git-timemachine magit-todos git-messenger browse-at-remote duplicate-thing whole-line-or-region shackle symbol-overlay smart-newline eros highlight-symbol company-emoji comapny-emoji spu forge dumb-jump mwim avy-flycheck avy-jump tide visual-regexp-steroids go-fill-struct electric-operator embrace auto-rename-tag rjsx-mode js2-mode json-mode counsel-projectile smartparens-config smartparens move-text quickrun smart-hungry-delete format-all whitespace-cleanup-mode winum uniquify lsp-ui flycheck-title flycheck-inline flycheck company-lsp company-box company-posframe company-quickhelp counsel-osx-app amx ivy-rich ivy-prescient ivy-posframe ivy-posframe-font company-prescient treemacs-projectile treemacs-magit treemacs magit projectile ivy-hydra all-the-icons highlight-parentheses highlight-quoted highlight-defined go-eldoc go-mode lsp-mode counsel smex company exec-path-from-shell dashboard esup use-package)))
  '(ring-bell-function (quote ignore))
  '(scroll-bar-mode nil)
  '(tab-width 2)
