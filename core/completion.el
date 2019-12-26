@@ -91,7 +91,7 @@
          ("C-x C-f" . counsel-find-file)
          ("C-h f"   . counsel-describe-function)
          ("C-h v"   . counsel-describe-variable)
-         ("s-Y"     . counsel-yank-pop))
+         ("s-V"     . counsel-yank-pop))
   :config
   (setq counsel-find-file-at-point t
         counsel-yank-pop-separator "\n----------\n"
@@ -115,10 +115,20 @@
 (use-package ivy-hydra :after ivy)
 (use-package ivy
   :defer 1
+  :defines (ivy-set-font)
   :config
   (ivy-mode 1)
   (setq ivy-height 20
         ivy-count-format "(%d/%d) ")
+  (defun ivy-set-font ()
+    (interactive)
+    (let* ((re "-\\*-\\([a-z0-9/ ]+\\)-\\([a-z]+\\).*" )
+           (candidates (--map
+                        (cons (s-replace-regexp re "\\1 (\\2)" it) it)
+                        (--filter (and (s-contains-p "normal-normal-*" it)
+                                       (s-contains-p "-m-0" it))
+                                  (x-list-fonts "*" nil (selected-frame))))))
+      (ivy-read "Font: " candidates :action (lambda (x) (funcall 'set-frame-font (cdr x))))))
 
   :bind (:map ivy-minibuffer-map
          ("<backspace>" . delete-backward-char)
@@ -129,8 +139,8 @@
 
 (use-package ivy-posframe
   :if window-system
+  :hook (ivy-posframe-mode . (lambda () (set-window-fringes nil 0 0)))
   :after ivy
-  :hook (ivy-posframe-mode . (lambda () (setq-local fringe-mode 0)))
   :config
   (setq ivy-posframe-border-width 20
         ivy-posframe-min-width 60
