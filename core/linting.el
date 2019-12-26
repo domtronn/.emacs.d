@@ -45,9 +45,9 @@
                  (setq-local flycheck-checker nil))))
 
 (use-package whitespace-cleanup-mode
+  :hook (prog-mode . whitespace-cleanup-mode)
   :init (define-prefix-command 'clean-copy-map)
   :config
-  (global-whitespace-cleanup-mode)
   (bind-keys :prefix "C-c C-c"
              :prefix-map clean-copy-map
              ("C-c" . whitespace-cleanup)))

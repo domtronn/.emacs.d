@@ -131,15 +131,16 @@
       (ivy-read "Font: " candidates :action (lambda (x) (funcall 'set-frame-font (cdr x))))))
 
   :bind (:map ivy-minibuffer-map
-         ("<backspace>" . delete-backward-char)
-         ("C-d"         . delete-forward-char)))
+              ("M-s"         . (lambda () (interactive) (ivy-quit-and-run (rg-project ivy-text "*"))))
+              ("<backspace>" . delete-backward-char)
+              ("C-d"         . delete-forward-char)))
 
 (use-package ivy-prescient
   :init (ivy-prescient-mode 1))
 
 (use-package ivy-posframe
   :if window-system
-  :hook (ivy-posframe-mode . (lambda () (set-window-fringes nil 0 0)))
+  :hook ((minibuffer-setup ivy-rich-mode) . (lambda () (set-window-fringes nil 0 0)))
   :after ivy
   :config
   (setq ivy-posframe-border-width 20

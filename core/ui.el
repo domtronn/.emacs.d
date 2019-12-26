@@ -59,7 +59,8 @@
               ("t"   . counsel-load-theme)
               ("f"   . set-frame-font)))))
 
-(use-package kaolin-themes :defer t)
+(use-package kaolin-themes :defer t
+  :custom (kaolin-themes-underline-wave nil))
 
 (use-package doom-themes
   :hook ((after-load-theme . doom-themes-visual-bell-config)
@@ -126,12 +127,6 @@
   :hook ((prog-mode . rainbow-mode)
          (help-mode . rainbow-mode)))
 
-(use-package diff-hl
-  :hook (prog-mode . diff-hl-mode)
-  :config
-  (diff-hl-flydiff-mode 1)
-  (diff-hl-mode 1))
-
 (use-package display-line-numbers
   :ensure nil
   :hook (prog-mode . display-line-numbers-mode)
@@ -149,13 +144,12 @@
 
 (use-package prog-mode
   :ensure nil
-  :hook ((prog-mode . prettify-symbols-mode)
-         (prog-mode . (lambda () (fringe-mode '(1 . 0))))))
+  :hook ((prog-mode . prettify-symbols-mode)))
 
 ;; Custom sets
 (display-battery-mode 1)
 
-(fringe-mode '(1 . 0))
+(fringe-mode 0)
 (set-window-fringes nil 0 0)
 (setq-default use-file-dialog nil
               use-dialog-box nil

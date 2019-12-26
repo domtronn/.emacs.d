@@ -25,7 +25,7 @@
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window))
   :config
-  (advice-add 'doom-themes-hide-fringes :after (lambda () (set-window-fringes nil 4 0)))
+  (advice-add 'doom-themes-hide-fringes :after (lambda () (set-window-fringes nil 6 0)))
   (with-no-warnings
     (treemacs-follow-mode)
     (treemacs-filewatch-mode)
@@ -106,6 +106,7 @@
         wgrep-change-readonly-file t))
 
 (use-package rg
+  :defer t
   :config
   (rg-enable-default-bindings)
   (setq rg-executable "/usr/local/bin/rg"
@@ -113,8 +114,6 @@
         rg-show-header t
         rg-group-result nil)
   (bind-keys
-   :map ivy-minibuffer-map
-   ("M-s" . (lambda () (interactive) (ivy-quit-and-run (rg-project ivy-text "*"))))
    :map rg-mode-map
    ("W" . wgrep-change-to-wgrep-mode)))
 

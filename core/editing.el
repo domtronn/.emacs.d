@@ -87,17 +87,21 @@
 
 (use-package multiple-cursors
   :config (setq mc/always-run-for-all t)
+  :hook (multiple-cursors-mode
+         . (lambda ()
+             (bind-keys
+              :map mc/keymap
+              ("<backspace>" . delete-backward-char)
+              ("<return>"    . smart-newline)
+              ("C-|"         . mc/vertical-align-with-space)
+              ("C-1"         . mc/insert-numbers))))
   :bind (("<down>"      . mc/mark-next-like-this)
          ("<S-down>"    . mc/skip-to-next-like-this)
          ("<up>"        . mc/mark-previous-like-this)
          ("<S-up>"      . mc/skip-to-previous-like-this)
          ("<right>"     . mc/mark-all-like-this)
          ("<left>"      . mc/edit-lines)
-         :map mc/keymap
-         ("<backspace>" . delete-backward-char)
-         ("<return>"    . smart-newline)
-         ("C-|"         . mc/vertical-align-with-space)
-         ("C-1"         . mc/insert-numbers)))
+         ))
 
 (use-package multi-line
   :bind (("C-c [" . multi-line-single-line)
