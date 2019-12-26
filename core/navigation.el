@@ -24,6 +24,8 @@
 
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window))
+  :hook (treemacs-mode
+         . (lambda () (face-remap-add-relative 'hl-line :background (face-background 'default))))
   :config
   (advice-add 'doom-themes-hide-fringes :after (lambda () (set-window-fringes nil 6 0)))
   (with-no-warnings
