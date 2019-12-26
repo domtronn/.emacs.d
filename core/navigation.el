@@ -112,8 +112,11 @@
         rg-show-columns t
         rg-show-header t
         rg-group-result nil)
-  (bind-keys :map rg-mode-map
-             ("W" . wgrep-change-to-wgrep-mode)))
+  (bind-keys
+   :map ivy-minibuffer-map
+   ("M-s" . (lambda () (interactive) (ivy-quit-and-run (rg-project ivy-text "*"))))
+   :map rg-mode-map
+   ("W" . wgrep-change-to-wgrep-mode)))
 
 (use-package auto-highlight-symbol
   :hook (prog-mode . auto-highlight-symbol-mode)

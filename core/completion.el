@@ -148,7 +148,8 @@
         ivy-posframe-min-height 20
         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
   (bind-keys :map ivy-minibuffer-map
-             ("C-'" . ivy-posframe-avy))
+             ("C-'"        . ivy-posframe-avy)
+             ("<C-return>" . ivy-read-action))
   (ivy-posframe-mode))
 
 (use-package ivy-rich
