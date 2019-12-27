@@ -1,14 +1,14 @@
 ;;; go.el --- Go specific configuration
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
 (use-package go-mode
   :mode "\\.go$"
   :bind (:map go-mode-map
-	      ("<s-return>" . gofmt)))
+              ("<s-return>" . gofmt)))
 
 (use-package go-eldoc
   :after go-mode
@@ -25,7 +25,7 @@
 (use-package go-fill-struct
   :after go-mode
   :bind (:map go-mode-map
-              ("M-RET"     . go-fill-struct)
+              ("M-RET" . go-fill-struct)
               ("C-c f" . go-fill-struct))
   :config
   (advice-add 'go-fill-struct :after 'gofmt))
