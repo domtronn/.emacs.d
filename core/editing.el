@@ -78,13 +78,10 @@
 
 (use-package visual-regexp-steroids
   :bind (("s-r" . vr/replace)
-         ("s-R" . vr/query-replace))
-  :config
-  (bind-keys :map vr/minibuffer-keymap
-             ("M-c" . (lambda () (interactive) (insert "\(.*?\)") (backward-char 5)))
-             ("M-w" . (lambda () (interactive) (insert "\(\\w+\)") (backward-char 4)))))
-
-
+         ("s-R" . vr/query-replace)
+         :map vr/minibuffer-keymap
+         ("M-c" . (lambda () (interactive) (insert "\\(.*?\\)") (backward-char 5)))
+         ("M-w" . (lambda () (interactive) (insert "\\(\\w+\\)") (backward-char 5)))))
 
 (use-package duplicate-thing
   :config
