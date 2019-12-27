@@ -38,10 +38,11 @@
     :config
     (add-to-list 'exec-path-from-shell-variables "NVM_BIN")
     (add-to-list 'exec-path-from-shell-variables "GOPATH")
+    (setq exec-path-from-shell-arguments '("-l"))
     :hook (emacs-startup
            . (lambda ()
                (async-start
-                `(lambda () '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
+                `(lambda () '(,(exec-path-from-shell-getenvs (append exec-path-from-shell-variables '("NVM_BIN" "GOPATH")))))
                 (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
 
   (use-package restart-emacs
