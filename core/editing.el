@@ -48,7 +48,7 @@
          ("q" . er/copy-string)
          ("s" . er/copy-symbol)
          ("p" . er/copy-inside-pairs))
-  :defines (er/copy-string er/copy-symbol er/copy-inside-pairs)
+  :defines (defcopy er/copy-string er/copy-symbol er/copy-inside-pairs)
   :commands (er/mark-symbol er/mark-inside-quotes)
   :init
   (defmacro defcopy (name f)
@@ -78,7 +78,13 @@
 
 (use-package visual-regexp-steroids
   :bind (("s-r" . vr/replace)
-         ("s-R" . vr/query-replace)))
+         ("s-R" . vr/query-replace))
+  :config
+  (bind-keys :map vr/minibuffer-keymap
+             ("M-c" . (lambda () (interactive) (insert "\(.*?\)") (backward-char 5)))
+             ("M-w" . (lambda () (interactive) (insert "\(\\w+\)") (backward-char 4)))))
+
+
 
 (use-package duplicate-thing
   :config
