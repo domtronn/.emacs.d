@@ -3,7 +3,6 @@
 
 ;; Future features / packages to look into
 
-;; TODO: howdoyou
 ;; TODO: pomidor
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
