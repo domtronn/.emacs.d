@@ -31,11 +31,5 @@
          ("M-;"          . cider-read-and-eval-defun-at-point)
          ("M-:"          . eval-expression)))
 
-(use-package flycheck-clojure
-  :after flycheck
-  :config (flycheck-clojure-setup)
-  (flycheck-add-mode 'clojure-cider-kibit 'clojure-mode)
-  (flycheck-add-mode 'clojure-cider-eastwood 'clojure-mode))
-
 (provide 'clojure)
 ;;; clojure.el ends here
