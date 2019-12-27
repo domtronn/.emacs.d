@@ -35,7 +35,7 @@
          ("s--"             . sp-forward-slurp-sexp)
 
          :map emacs-lisp-mode-map
-         ("C-K" . sp-kill-whole-line)))
+         ("C-S-k" . sp-kill-whole-line)))
 
 (use-package embrace
   :bind (("C-," . embrace-add)
@@ -44,7 +44,7 @@
 (use-package expand-region
   :demand t
   :bind (("M-q" . er/expand-region)
-         :map clean-copy-map
+         :map core-mode-map
          ("q" . er/copy-string)
          ("s" . er/copy-symbol)
          ("p" . er/copy-inside-pairs))
@@ -71,7 +71,10 @@
   (electric-operator-add-rules-for-mode
    'emacs-lisp-mode
    (cons "-" nil)
-   (cons "." " . ")))
+   (cons "." " . "))
+  (electric-operator-add-rules-for-mode
+   'go-mode
+   (cons ":=" " := ")))
 
 (use-package visual-regexp-steroids
   :bind (("s-r" . vr/replace)
@@ -129,10 +132,11 @@
 (delete-selection-mode 1)
 
 (bind-keys
- ("C-K" . kill-whole-line)
- ("M-D" . backward-kill-word)
- ("s-/" . comment-or-uncomment-region)
- ("C-j" . join-line))
+ ("C-k"   . kill-line)
+ ("C-S-k" . kill-whole-line)
+ ("M-D"   . backward-kill-word)
+ ("s-/"   . comment-or-uncomment-region)
+ ("C-j"   . join-line))
 
 (provide 'editing)
 ;;; editing.el ends here
