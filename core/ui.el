@@ -137,7 +137,36 @@
 
 (use-package shackle
   :commands shackle-display-buffer
-  :hook (after-init . shackle-mode))
+  :hook (after-init . shackle-mode)
+  :config
+  (setq shackle-default-size 0.3
+        shackle-default-alignment 'below
+        shackle-rules
+        '((("*Help*" "*Apropos*") :select t :size 0.3 :align 'below :autoclose t)
+          (("*compilation*" "*Compile-Log*") :select t :size 0.3 :align 'below :autoclose t)
+          ("*Completions*" :size 0.3 :align 'below :autoclose t)
+          ("*Backtrace*" :select t :size 15 :align 'below)
+          (("*Warnings*" "*Messages*") :size 0.3 :align 'below :autoclose t)
+          ("^\\*.*Shell Command.*\\*$" :regexp t :size 0.3 :align 'below :autoclose t)
+          (("*shell*" "*eshell*" "*ielm*") :popup t :align 'below)
+          ("*gud-debug*" :select t :size 0.4 :align 'below :autoclose t)
+          ("\\*ivy-occur .*\\*" :regexp t :select t :align 'below)
+          (" *undo-tree*" :select t)
+          ("*quickrun*" :select t :size 15 :align 'below)
+          ("*Finder*" :select t :size 0.3 :align 'below :autoclose t)
+          (("*lsp-help*" "*lsp session*") :size 0.3 :align 'below :autoclose t)
+          (("*Paradox Report*" "*package update results*") :size 0.2 :align 'below :autoclose t)
+          ("*Package-Lint*" :size 0.4 :align 'below :autoclose t)
+          (("*Gofmt Errors*" "*Go Test*") :select t :size 0.3 :align 'below :autoclose t)
+          ("*How Do You*" :select t :size 0.5 :align 'below :autoclose t)
+
+          (" *Flycheck checkers*" :select t :size 0.3 :align 'below :autoclose t)
+          ((flycheck-error-list-mode point-history-show-mode flymake-diagnostics-buffer-mode) :select t :size 0.3 :align 'below :autoclose t)
+
+          ((grep-mode rg-mode deadgrep-mode ag-mode pt-mode) :select t :align 'below)
+          (Buffer-menu-mode :select t :size 20 :align 'below :autoclose t)
+          (helpful-mode :select t :size 0.3 :align 'below :autoclose t)
+          ((process-menu-mode cargo-process-mode) :select t :size 0.3 :align 'below :autoclose t))))
 
 (use-package anzu :config (global-anzu-mode))
 
@@ -189,7 +218,6 @@
 
 (use-package beacon
   :after doom-modeline
-  :hook (after-init . beacon-mode)
   :bind (:map change-view-map
               ("v" . beacon-blink)
               ("b" . beacon-mode))
