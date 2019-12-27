@@ -180,6 +180,10 @@
 (use-package ivy-prescient
   :init (ivy-prescient-mode 1))
 
+(use-package ivy-yasnippet
+  :after (ivy yasnippet)
+  :bind ("C-\\" . ivy-yasnippet))
+
 (use-package ivy-posframe
   :if window-system
   :hook ((minibuffer-setup ivy-rich-mode) . (lambda () (set-window-fringes nil 0 0)))

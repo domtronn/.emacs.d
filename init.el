@@ -3,13 +3,11 @@
 
 ;; Future features / packages to look into
 
-;; TODO: focus
 ;; TODO: howdoyou
 ;; TODO: pomidor
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
 ;; TODO: dired extensions
-;; TODO: yasnippet
 ;; TODO: font scaling
 ;; TODO: itunes in hydra
 
@@ -74,6 +72,7 @@
   (use-package vcs        :load-path "core")
   (use-package linting    :load-path "core")
   (use-package editing    :load-path "core")
+  (use-package snippets   :load-path "core")
   (use-package completion :load-path "core")
   (use-package navigation :load-path "core")
 
