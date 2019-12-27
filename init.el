@@ -11,7 +11,6 @@
 ;; TODO: dired extensions
 ;; TODO: yasnippet
 ;; TODO: font scaling
-;; FIXME: better duplicate line  or region
 
 ;;; Code:
 

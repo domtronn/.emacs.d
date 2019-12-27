@@ -84,7 +84,13 @@
     (call-interactively 'duplicate-thing)
     (call-interactively 'vr/query-replace))
 
-  :bind (("s-d" . duplicate-thing)
+  (defun duplicate-thing-quit ()
+    (interactive)
+    (save-excursion
+      (call-interactively 'duplicate-thing)
+      (keyboard-quit)))
+
+  :bind (("s-d" . duplicate-thing-quit)
          ("s-D" . duplicate-thing-replace)))
 
 (use-package multiple-cursors
