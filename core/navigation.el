@@ -141,7 +141,8 @@
 (use-package wgrep
   :hook (rg-mode . wgrep-rg-setup)
   :config
-  (setq wgrep-auto-save-buffer t
+  (setq wgrep-enable-key "w"
+        wgrep-auto-save-buffer t
         wgrep-change-readonly-file t))
 
 (use-package rg
@@ -155,6 +156,9 @@
   (bind-keys
    :map rg-mode-map
    ("W" . wgrep-change-to-wgrep-mode)))
+
+(use-package helpful
+  :commands (helpful-variable helpful-callable))
 
 (use-package auto-highlight-symbol
   :hook (prog-mode . auto-highlight-symbol-mode)

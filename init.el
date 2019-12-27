@@ -50,7 +50,7 @@
            ("H-Q" . restart-emacs)))
 
   (use-package hide-mode-line
-    :hook ((dashboard-mode lsp-ui-imenu-mode reb-mode) . hide-mode-line-mode))
+    :hook ((dashboard-mode lsp-ui-imenu-mode help-mode helpful-mode rg-mode reb-mode) . hide-mode-line-mode))
 
   (use-package esup :commands (esup))
   (use-package auto-package-update

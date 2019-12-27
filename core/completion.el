@@ -124,7 +124,8 @@
   :config
   (setq counsel-find-file-at-point t
         counsel-yank-pop-separator "\n----------\n"
-      ))
+        counsel-describe-function-function 'helpful-callable
+        counsel-describe-variable-function 'helpful-variable))
 
 (use-package counsel-projectile
   :after (projectile counsel)
