@@ -41,10 +41,6 @@
   (add-to-list 'company-backends 'company-tabnine)
   (setq company-tabnine-always-trigger t))
 
-(use-package company-emoji
-  :after company
-  :config (add-to-list 'company-backends 'company-emoji))
-
 (use-package company-box
   :hook (company-mode . company-box-mode)
   :bind (:map company-active-map
@@ -211,7 +207,11 @@
 ;; go - GO111MODULE=on go get golang.org/x/tools/gopls@latest
 
 (use-package lsp-mode
-  :hook (((go-mode js2-mode) . lsp-deferred))
+  :hook (((go-mode
+           js2-mode
+           rjsx-mode
+           rust-mode
+           rustic-mode) . lsp-deferred))
   :commands (lsp))
 
 (bind-keys

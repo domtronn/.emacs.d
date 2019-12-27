@@ -44,14 +44,13 @@
          ("M-n" . lsp-ui-imenu--next-kind)
          ("M-p" . lsp-ui-imenu--prev-kind))
   :config
-  (defvar
-    lsp-ui-non-flycheck-modes
-    '(rjsx-mode js2-mode))
+  (defvar lsp-ui-non-flycheck-modes
+    '(rjsx-mode js2-mode rust-mode rustic-mode))
   (setq lsp-prefer-flymake nil)
 
   (advice-add 'lsp-ui-flycheck-enable :after
               '(lambda (&rest args)
-                 (when (memq major-mode 'lsp-ui-non-flycheck-modes)
+                 (when (memq major-mode lsp-ui-non-flycheck-modes)
                    (flycheck-disable-checker 'lsp-ui)
                    (setq-local flycheck-checker nil)))))
 
@@ -62,6 +61,7 @@
 
 (use-package format-all
   :init (define-prefix-command 'format-all-map)
+  :hook (prog-mode . format-all-mode)
   :config
   (bind-keys :prefix "C-c RET"
              :prefix-map format-all-map

@@ -11,7 +11,13 @@
 ;;; Code:
 
 (use-package rust-mode
-  :mode ("\\.rs$" . rust-mode))
+  :mode ("\\.rs$" . rust-mode)
+  :hook (rust-mode
+         . (lambda () (setq-local
+                  company-backends
+                  '(company-lsp company-racer
+                                (company-files company-keywords company-capf company-yasnippet)
+                                (company-abbrev company-dabbrev))))))
 
 (use-package racer
   :hook ((rust-mode . racer-mode)
