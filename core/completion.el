@@ -170,6 +170,7 @@
 
   :bind (:map ivy-minibuffer-map
               ("s-s"         . (lambda () (interactive) (ivy-quit-and-run (rg-project ivy-text "*"))))
+              ("s-f"         . (lambda () (interactive) (ivy-quit-and-run (counsel-rg))))
               ("s-o"         . (lambda () (interactive) (ivy-quit-and-run (counsel-projectile))))
               ("s-p"         . (lambda () (interactive) (ivy-quit-and-run (counsel-projectile-switch-project))))
               ("<backspace>" . delete-backward-char)
@@ -183,7 +184,7 @@
   :hook ((minibuffer-setup ivy-rich-mode) . (lambda () (set-window-fringes nil 0 0)))
   :after ivy
   :config
-  (setq ivy-posframe-border-width 20
+  (setq ivy-posframe-border-width 30
         ivy-posframe-min-width 60
         ivy-posframe-width 120
         ivy-posframe-min-height 20
