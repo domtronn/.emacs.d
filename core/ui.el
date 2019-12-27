@@ -242,6 +242,31 @@
   :ensure nil
   :hook ((prog-mode . prettify-symbols-mode)))
 
+(defvar ts-default 120 "Default amount for text to be scaled.")
+(defvar ts-factor 1.05 "Amount to scale text per step.")
+
+(cl-defmacro deffacescale (face)
+  `(progn
+     (defun ,(intern (format "%s-ts-increase" face)) ()
+       (interactive)
+       (set-face-attribute ',face nil :height (truncate (* ts-factor (face-attribute ',face :height nil 'default) ))))
+
+     (defun ,(intern (format "%s-ts-reset" face)) ()
+       (interactive)
+       (set-face-attribute ',face nil :height ts-default))
+
+     (defun ,(intern (format "%s-ts-decrease" face)) ()
+       (interactive)
+       (set-face-attribute ',face nil :height (truncate (/ (face-attribute ',face :height nil 'default) ts-factor))))))
+
+(deffacescale default)
+(deffacescale solaire-default-face)
+(deffacescale variable-pitch)
+
+(bind-keys ("H-0" . solaire-default-face-ts-reset)
+           ("H--" . solaire-default-face-ts-decrease)
+           ("H-=" . solaire-default-face-ts-increase))
+
 ;; Custom sets
 (display-battery-mode 1)
 

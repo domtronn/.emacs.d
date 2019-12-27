@@ -7,7 +7,6 @@
 ;; TODO: docker tramp
 ;; TODO: kubernets porcelain
 ;; TODO: dired extensions
-;; TODO: font scaling
 ;; TODO: itunes in hydra
 
 ;;; Code:
@@ -44,8 +43,8 @@
 
   (use-package restart-emacs
     :commands (restart-emacs)
-    :bind (("H-q" . kill-emacs)
-           ("H-Q" . restart-emacs)))
+    :bind (("<kp-delete>" . kill-emacs)
+           ("<S-kp-delete>" . restart-emacs)))
 
   (use-package hide-mode-line
     :hook ((dashboard-mode lsp-ui-imenu-mode help-mode helpful-mode rg-mode reb-mode) . hide-mode-line-mode))
