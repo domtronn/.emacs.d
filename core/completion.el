@@ -15,7 +15,7 @@
 (use-package company
   :config
   (setq company-show-numbers t
-        company-tooltip-limit 20
+        company-tooltip-limit 15
         company-tooltip-align-annotations t
         company-idle-delay 0.2
         company-minimum-prefix-length 3
@@ -53,25 +53,30 @@
   :config
   (defun company-box--common-make-line (candidate)
     (-let* (((candidate annotation len-c len-a backend) candidate)
+            (candidate-i (--find-index (s-equals-p candidate it) company-candidates))
+            (candidate-num (format "%s " (if (< candidate-i 9) (1+ candidate-i) " ")))
+            (candidate-kind (company-box--get-kind candidate))
+            (annotation-str (format "%s [%s]" (or annotation "") candidate-kind))
+            (annotation-len (length annotation-str))
             (color (company-box--get-color backend))
             ((c-color a-color i-color s-color) (company-box--resolve-colors color))
             (icon-string (and company-box--with-icons-p (company-box--add-icon candidate)))
             (candidate-string (concat (propertize (or company-common "") 'face 'company-tooltip-common)
                                       (substring (propertize candidate 'face 'company-box-candidate) (length company-common) nil)))
-            (align-string (when annotation
-                            (concat " " (and company-tooltip-align-annotations
-                                             (propertize " " 'display `(space :align-to (- right-fringe ,(or len-a 0) 1)))))))
+            (align-string (concat " " (and company-tooltip-align-annotations
+                                           (propertize " " 'display `(space :align-to (- right-fringe ,(or annotation-len 0) 1))))))
             (space company-box--space)
             (icon-p company-box-enable-icon)
-            (annotation-string (and annotation (propertize annotation 'face 'company-box-annotation)))
+            (annotation-string (propertize annotation-str 'face 'company-box-annotation))
             (line (concat (unless (or (and (= space 2) icon-p) (= space 0))
                             (propertize " " 'display `(space :width ,(if (or (= space 1) (not icon-p)) 1 0.75))))
                           (company-box--apply-color icon-string i-color)
+                          (company-box--apply-color candidate-num i-color)
                           (company-box--apply-color candidate-string c-color)
                           align-string
                           (company-box--apply-color annotation-string a-color)))
             (len (length line)))
-      (add-text-properties 0 len (list 'company-box--len (+ len-c len-a)
+      (add-text-properties 0 len (list 'company-box--len (+ 2 len-c annotation-len)
                                        'company-box--color s-color)
                            line)
       line))
