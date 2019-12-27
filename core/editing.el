@@ -68,15 +68,11 @@
              electric-operator-add-rules-for-mode)
   :hook (prog-mode . electric-operator-mode)
   :config
-  (electric-operator-add-rules-for-mode
-   'emacs-lisp-mode
-   (cons "-" nil)
-   (cons "." " . "))
-  (electric-operator-add-rules-for-mode
-   'go-mode
-   (cons ":=" " := ")))
+  (electric-operator-add-rules-for-mode 'emacs-lisp-mode (cons "-" nil) (cons "." " . "))
+  (electric-operator-add-rules-for-mode 'clojure-mode (cons "-" nil))
+  (electric-operator-add-rules-for-mode 'go-mode (cons ":=" " := ")))
 
-(use-package visual-regexp-steroids
+(use-package visual-regexp
   :bind (("s-r" . vr/replace)
          ("s-R" . vr/query-replace)
          :map vr/minibuffer-keymap
