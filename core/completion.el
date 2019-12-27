@@ -25,6 +25,9 @@
          ("C-n"        . company-select-next)
          ("C-p"        . company-select-previous)))
 
+(use-package company-racer
+  :config (add-to-list 'company-backends 'company-racer))
+
 (use-package company-lsp
   :custom (company-lsp-cache-candidates 'auto)
   :config (add-to-list 'company-backends 'company-lsp))

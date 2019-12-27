@@ -77,6 +77,7 @@
   ;; ;; Load language modes
   (use-package go      :load-path "modes")
   (use-package web     :load-path "modes")
+  (use-package rust    :load-path "modes")
   (use-package elisp   :load-path "modes")
   (use-package clojure :load-path "modes")
 
