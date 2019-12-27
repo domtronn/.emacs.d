@@ -155,7 +155,9 @@
       (ivy-read "Font: " candidates :action (lambda (x) (funcall 'set-frame-font (cdr x))))))
 
   :bind (:map ivy-minibuffer-map
-              ("M-s"         . (lambda () (interactive) (ivy-quit-and-run (rg-project ivy-text "*"))))
+              ("s-s"         . (lambda () (interactive) (ivy-quit-and-run (rg-project ivy-text "*"))))
+              ("s-o"         . (lambda () (interactive) (ivy-quit-and-run (counsel-projectile))))
+              ("s-p"         . (lambda () (interactive) (ivy-quit-and-run (counsel-projectile-switch-project))))
               ("<backspace>" . delete-backward-char)
               ("C-d"         . delete-forward-char)))
 

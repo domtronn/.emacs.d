@@ -155,6 +155,27 @@
          ("f" . focus-mode)))
 
 (use-package olivetti
+  :init
+  (defvar olivetti--display-linum nil)
+  (defvar olivetti--hide-mode-line nil)
+  (defvar olivetti-enter-mode-hook nil "Hook run when entering `olivetti-mode'.")
+  (defvar olivetti-exit-mode-hook nil "Hook run when exiting `olivetti-mode'.")
+  :config
+  (advice-add 'olivetti-mode
+              :after (lambda (&rest _) (if olivetti-mode
+                                      (run-hooks 'olivetti-enter-mode-hook)
+                                    (run-hooks 'olivetti-exit-mode-hook))))
+
+  :hook ((olivetti-exit-mode
+          . (lambda ()
+              (hide-mode-line-mode (or olivetti--hide-mode-line 0))
+              (display-line-numbers-mode olivetti--display-linum)))
+         (olivetti-enter-mode
+          . (lambda ()
+              (setq-local olivetti--display-linum display-line-numbers-mode)
+              (setq-local olivetti--hide-mode-line hide-mode-line-mode)
+              (display-line-numbers-mode 0)
+              (hide-mode-line-mode 1))))
   :bind (("H-w" . olivetti-mode)
          :map change-view-map
          ("w" . olivetti-mode)))
