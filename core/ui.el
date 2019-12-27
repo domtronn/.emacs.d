@@ -187,6 +187,14 @@
   :hook ((prog-mode . rainbow-mode)
          (help-mode . rainbow-mode)))
 
+(use-package beacon
+  :after doom-modeline
+  :hook (after-init . beacon-mode)
+  :bind (:map change-view-map
+              ("v" . beacon-blink)
+              ("b" . beacon-mode))
+  :config (setq beacon-color (face-background 'doom-modeline-bar)))
+
 (use-package display-line-numbers
   :ensure nil
   :hook ((prog-mode . display-line-numbers-mode))
