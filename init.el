@@ -11,6 +11,7 @@
 ;; TODO: dired extensions
 ;; TODO: yasnippet
 ;; TODO: font scaling
+;; TODO: itunes in hydra
 
 ;;; Code:
 
@@ -63,7 +64,7 @@
   (use-package no-littering)
   (use-package try :commands (try))
 
-  (bind-keys :prefix-map clean-copy-map :prefix "C-c C-c" :prefix-docstring "Clean whitespace or copy strings")
+  (bind-keys :prefix-map core-mode-map :prefix "C-c C-c" :prefix-docstring "Clean whitespace or copy strings")
   (bind-keys :prefix-map change-view-map :prefix "C-c v" :prefix-docstring "Modify the view of the buffer")
   (bind-keys :prefix-map question-map :prefix "C-c /" :prefix-docstring "Prefix for asking questions")
   (bind-keys :prefix-map avy-map :prefix "C-x C-x" :prefix-docstring "Avy navigation")

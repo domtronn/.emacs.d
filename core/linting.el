@@ -46,7 +46,7 @@
 
 (use-package whitespace-cleanup-mode
   :hook (prog-mode . whitespace-cleanup-mode)
-  :bind (:map clean-copy-map
+  :bind (:map core-mode-map
               ("C-c" . whitespace-cleanup)))
 
 (use-package format-all

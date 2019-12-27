@@ -76,6 +76,7 @@
   :bind (:map question-map
               ("h" . howdoyou-query)
               :map howdoyou-mode-map
+              ("q" . quit-window)
               ("n" . next-line)
               ("f" . forward-char)
               ("p" . previous-line)
@@ -153,9 +154,9 @@
         rg-show-columns t
         rg-show-header t
         rg-group-result nil)
-  (bind-keys
-   :map rg-mode-map
-   ("W" . wgrep-change-to-wgrep-mode)))
+  :bind (("M-S" . rg-dwim-project-dir)
+         :map rg-mode-map
+         ("w" . wgrep-change-to-wgrep-mode)))
 
 (use-package helpful
   :commands (helpful-variable helpful-callable))
