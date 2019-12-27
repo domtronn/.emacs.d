@@ -24,6 +24,7 @@
 
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window)
+         ("s-)" . treemacs-kill-buffer)
          ("<mouse-1>" . treemacs-RET-action))
   :hook (treemacs-mode
          . (lambda ()
@@ -128,6 +129,14 @@
 (use-package goto-chg
   :bind (("s-," . goto-last-change)
          ("s-." . goto-last-change-reverse)))
+
+(use-package point-history
+  :load-path "etc/elisp-packages/point-history"
+  :hook (prog-mode . point-history-mode)
+  :bind (:map point-history-show-mode-map
+              ("q" . point-history-goto)
+         :map avy-map
+              ("h" . point-history-show)))
 
 (use-package wgrep
   :hook (rg-mode . wgrep-rg-setup)
