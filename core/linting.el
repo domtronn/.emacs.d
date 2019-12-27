@@ -24,6 +24,16 @@
   (with-eval-after-load 'js2-mode
     (setq flycheck-javascript-eslint-executable "eslint_d")))
 
+(use-package flycheck-clojure
+  :after flycheck
+  :config (flycheck-clojure-setup)
+  (flycheck-add-mode 'clojure-cider-kibit 'clojure-mode)
+  (flycheck-add-mode 'clojure-cider-eastwood 'clojure-mode))
+
+(use-package flycheck-rust
+  :after flycheck
+  :config (flycheck-rust-setup))
+
 (use-package lsp-ui
   :commands lsp-ui-mode
   :hook (prog-mode . lsp-ui-mode)
@@ -41,8 +51,9 @@
 
   (advice-add 'lsp-ui-flycheck-enable :after
               '(lambda (&rest args)
-                 (flycheck-disable-checker 'lsp-ui)
-                 (setq-local flycheck-checker nil))))
+                 (when (memq major-mode 'lsp-ui-non-flycheck-modes)
+                   (flycheck-disable-checker 'lsp-ui)
+                   (setq-local flycheck-checker nil)))))
 
 (use-package whitespace-cleanup-mode
   :hook (prog-mode . whitespace-cleanup-mode)
