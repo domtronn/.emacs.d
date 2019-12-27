@@ -144,7 +144,7 @@
   (ivy-mode 1)
   (setq ivy-height 20
         ivy-count-format "(%d/%d) ")
-  (defun ivy-set-font ()
+  (defun ivy-set-font (&optional face)
     (interactive)
     (let* ((re "-\\*-\\([a-z0-9/ ]+\\)-\\([a-z]+\\).*" )
            (candidates (--map
@@ -152,7 +152,16 @@
                         (--filter (and (s-contains-p "normal-normal-*" it)
                                        (s-contains-p "-m-0" it))
                                   (x-list-fonts "*" nil (selected-frame))))))
-      (ivy-read "Font: " candidates :action (lambda (x) (funcall 'set-frame-font (cdr x))))))
+      (ivy-read "Font: " candidates
+                :action (lambda (x) (funcall 'set-face-font
+                                        (or face 'default)
+                                        (cdr x)
+                                        (selected-frame))))))
+
+  (defun ivy-set-face-font ()
+    (interactive)
+    (let ((face (read-face-name "Face: " (face-at-point t))))
+      (ivy-set-font face)))
 
   :bind (:map ivy-minibuffer-map
               ("s-s"         . (lambda () (interactive) (ivy-quit-and-run (rg-project ivy-text "*"))))

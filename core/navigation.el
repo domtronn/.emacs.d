@@ -23,9 +23,12 @@
   :bind (("C-c p p" . projectile-switch-project)))
 
 (use-package treemacs
-  :bind (("s-0" . treemacs-select-window))
+  :bind (("s-0" . treemacs-select-window)
+         ("<mouse-1>" . treemacs-RET-action))
   :hook (treemacs-mode
-         . (lambda () (face-remap-add-relative 'hl-line :background (face-background 'default))))
+         . (lambda ()
+             (face-remap-add-relative 'hl-line :background (face-background 'default))
+             (face-remap-add-relative 'fringe :background (face-background 'default))))
   :config
   (advice-add 'doom-themes-hide-fringes :after (lambda () (set-window-fringes nil 6 0)))
   (with-no-warnings
@@ -93,7 +96,7 @@
   :config
   (avy-setup-default)
   (eval-after-load 'ivy
-    (progns
+    (progn
       (--set-face 'avy-lead-face 'ivy-minibuffer-match-face-2)
       (--set-face 'avy-lead-face-0 'ivy-minibuffer-match-face-3)
       (--set-face 'avy-lead-face-1 'ivy-minibuffer-match-face-4)
