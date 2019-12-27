@@ -161,7 +161,7 @@
           ("*How Do You*" :select t :size 0.5 :align 'below :autoclose t)
 
           (" *Flycheck checkers*" :select t :size 0.3 :align 'below :autoclose t)
-          ((flycheck-error-list-mode point-history-show-mode flymake-diagnostics-buffer-mode) :select t :size 0.3 :align 'below :autoclose t)
+          ((cider-inspector-mode flycheck-error-list-mode point-history-show-mode flymake-diagnostics-buffer-mode) :select t :size 0.3 :align 'below :autoclose t)
 
           ((grep-mode rg-mode deadgrep-mode ag-mode pt-mode) :select t :align 'below)
           (Buffer-menu-mode :select t :size 20 :align 'below :autoclose t)

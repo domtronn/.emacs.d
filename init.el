@@ -75,9 +75,10 @@
   (use-package navigation :load-path "core")
 
   ;; ;; Load language modes
-  (use-package go    :load-path "modes")
-  (use-package web   :load-path "modes")
-  (use-package elisp :load-path "modes")
+  (use-package go      :load-path "modes")
+  (use-package web     :load-path "modes")
+  (use-package elisp   :load-path "modes")
+  (use-package clojure :load-path "modes")
 
   ;; custom settings
   (fset 'yes-or-no-p 'y-or-n-p)
