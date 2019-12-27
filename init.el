@@ -35,6 +35,9 @@
     :if (memq window-system '(mac ns))
     :commands (exec-path-from-shell-getenvs
                exec-path-from-shell-setenv)
+    :config
+    (add-to-list 'exec-path-from-shell-variables "NVM_BIN")
+    (add-to-list 'exec-path-from-shell-variables "GOPATH")
     :hook (emacs-startup
            . (lambda ()
                (async-start

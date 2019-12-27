@@ -29,6 +29,12 @@
   :commands (global-auto-rename-tag-mode)
   :config (global-auto-rename-tag-mode t))
 
+(use-package js-import
+  :custom
+  (js-import-quote "'")
+  :bind (:map js2-mode-map
+              ("C-c i" . js-import)))
+
 (eval-after-load 'doom-modeline
   (doom-modeline-def-env node
     :hooks   '(js2-mode-hook rjsx-mode-hook javascript-mode-hook)
