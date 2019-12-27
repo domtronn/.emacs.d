@@ -2,10 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package snails
-  :if (memq window-system '(mac ns))
-  :load-path "etc/elisp-packages/snails"
-  :bind ("s-SPC" . snails))
 
 (use-package amx
   :init
@@ -212,8 +208,7 @@
 ;; go - GO111MODULE=on go get golang.org/x/tools/gopls@latest
 
 (use-package lsp-mode
-  :hook ((go-mode  . lsp-deferred)
-         (js2-mode . lsp-deferred))
+  :hook (((go-mode js2-mode) . lsp-deferred))
   :commands (lsp))
 
 (bind-keys
