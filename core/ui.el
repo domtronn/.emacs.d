@@ -30,7 +30,7 @@
    `(((,(when (display-graphic-p)
           (all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0))
        "Homepage" "Browse homepage"
-       (lambda (&rest _) (browse-url-chrome "https://github.com")))
+       (lambda (&rest _) (browse-url "https://github.com")))
 
       (,(when (display-graphic-p)
           (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
@@ -57,7 +57,9 @@
               ("C-n" . next-line)
               ("C-p" . previous-line)
               ("t"   . counsel-load-theme)
-              ("f"   . ivy-set-font)))))
+              ("f"   . ivy-set-font)
+              ("=" . solaire-default-face-ts-increase)
+              ("-" . solaire-default-face-ts-decrease)))))
 
 (use-package kaolin-themes :defer t
   :custom (kaolin-themes-underline-wave nil))
@@ -192,8 +194,8 @@
   :config
   (advice-add 'olivetti-mode
               :after (lambda (&rest _) (if olivetti-mode
-                                      (run-hooks 'olivetti-enter-mode-hook)
-                                    (run-hooks 'olivetti-exit-mode-hook))))
+                                           (run-hooks 'olivetti-enter-mode-hook)
+                                         (run-hooks 'olivetti-exit-mode-hook))))
 
   :hook ((olivetti-exit-mode
           . (lambda ()
@@ -243,7 +245,7 @@
   :hook ((prog-mode . prettify-symbols-mode)))
 
 (defvar ts-default 120 "Default amount for text to be scaled.")
-(defvar ts-factor 1.05 "Amount to scale text per step.")
+(defvar ts-factor 1.1 "Amount to scale text per step.")
 
 (cl-defmacro deffacescale (face)
   `(progn
