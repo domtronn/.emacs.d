@@ -63,6 +63,11 @@
                     (intern (format "winum-select-window-%s" (1+ n)))))
   :config (winum-mode))
 
+(use-package ace-window
+  :bind (:map avy-map
+              ("k" . ace-delete-window)
+              ("m" . ace-delete-other-windows)))
+
 (use-package mwim
   :bind (([remap move-beginning-of-line] . mwim-beginning-of-code-or-line)
          ([remap move-end-of-line]       . mwim-end-of-code-or-line)))
@@ -136,7 +141,7 @@
   :hook (prog-mode . point-history-mode)
   :bind (:map point-history-show-mode-map
               ("q" . point-history-goto)
-         :map avy-map
+              :map avy-map
               ("h" . point-history-show)))
 
 (use-package wgrep
