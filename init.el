@@ -8,6 +8,9 @@
 ;; TODO: kubernets porcelain
 ;; TODO: dired extensions
 ;; TODO: itunes in hydra
+;; FIXME: Electric pair mode in JS is shite
+;; TODO: web mode for HTML and EJS etc
+;; TODO: format all popup buffer looks shit
 
 ;;; Code:
 
@@ -38,17 +41,18 @@
     :config
     (add-to-list 'exec-path-from-shell-variables "NVM_BIN")
     (add-to-list 'exec-path-from-shell-variables "GOPATH")
-    (setq exec-path-from-shell-arguments '("-l"))
+    (add-to-list 'exec-path-from-shell-variables "GEM_PATH")
     :hook (emacs-startup
            . (lambda ()
                (async-start
-                `(lambda () '(,(exec-path-from-shell-getenvs (append exec-path-from-shell-variables '("NVM_BIN" "GOPATH")))))
+                `(lambda ()
+                   '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
                 (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
 
   (use-package restart-emacs
     :commands (restart-emacs)
-    :bind (("<kp-delete>" . kill-emacs)
-           ("<S-kp-delete>" . restart-emacs)))
+    :bind (("<s-kp-delete>" . kill-emacs)
+           ("<S-s-kp-delete>" . restart-emacs)))
 
   (use-package hide-mode-line
     :hook ((dashboard-mode lsp-ui-imenu-mode help-mode helpful-mode rg-mode reb-mode) . hide-mode-line-mode))
@@ -82,14 +86,16 @@
   (use-package go      :load-path "modes")
   (use-package web     :load-path "modes")
   (use-package rust    :load-path "modes")
+  (use-package ruby    :load-path "modes")
   (use-package elisp   :load-path "modes")
   (use-package clojure :load-path "modes")
 
   ;; custom settings
   (fset 'yes-or-no-p 'y-or-n-p)
   (bind-keys
-   ("M-£" . (lambda () (interactive) (insert "#")))
-   ("M-*" . (lambda () (interactive) (insert "•"))))
+   ("M-£"   . (lambda () (interactive) (insert "#")))
+   ("M-*"   . (lambda () (interactive) (insert "•")))
+   ("M-RET" . hippie-expand))
   )
 
 (provide 'init)
