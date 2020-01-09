@@ -18,6 +18,7 @@
         company-require-match 'never)
   :hook (after-init    . global-company-mode)
   :bind (("<kp-enter>" . company-complete)
+         ("<M-tab>"    . company-begin-backend)
          ("M-/"        . company-complete)
          :map company-active-map
          ("<tab>"      . company-complete-common-or-cycle)
@@ -204,13 +205,20 @@
   (which-key-mode))
 
 ;; LSP servers
-;; go - GO111MODULE=on go get golang.org/x/tools/gopls@latest
+;; go   - GO111MODULE=on go get golang.org/x/tools/gopls@latest
+;; css  - npm install -g vscode-css-languageserver-bin
+;; js   - npm i -g typescript-language-server; npm i -g typescript
+;; json - npm i -g vscode-json-languageserver
 
 (use-package lsp-mode
+  :disabled
   :hook (((go-mode
            js2-mode
            rjsx-mode
            rust-mode
+           scss-mode
+           css-mode
+           json-mode
            rustic-mode) . lsp-deferred))
   :commands (lsp))
 
