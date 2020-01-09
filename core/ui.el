@@ -134,7 +134,7 @@
         'face '(:height 0.7)))))
 
   (doom-modeline-def-modeline 'main
-    '(bar workspace-name window-number modals matches buffer-type buffer-info remote-host buffer-position word-count selection-info)
+    '(bar workspace-name window-number modals matches buffer-type buffer-info remote-host)
     '(company-backend misc-info persp-name battery debug lsp input-method buffer-encoding  process vcs checker)))
 
 (use-package shackle
