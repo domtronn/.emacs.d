@@ -19,8 +19,10 @@
   :config
   (projectile-mode)
   (setq projectile-completion-system 'ivy
-        projectile-sort-order 'recently-active)
-  :bind (("C-c p p" . projectile-switch-project)))
+        projectile-sort-order 'recently-active
+        projectile-keymap-prefix "C-c p")
+  :bind (("C-c p p" . projectile-switch-project)
+         ))
 
 (use-package treemacs
   :bind (("s-0" . treemacs-select-window)
