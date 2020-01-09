@@ -1,10 +1,21 @@
 ;;; web --- Config for Javascript, Typescript & JSX
 ;;; Commentary:
 ;;; Code:
+
+;; HTML
+(use-package web-mode
+  :mode (("\\.ejs$" . web-mode)
+         ("\\.html$" . web-mode))
+  :config (setq web-mode-markup-indent-offset 2
+                web-mode-css-indent-offset 2
+                web-mode-code-indent-offset 2))
+
+;; JS
 (use-package json-mode
   :mode (("\\.json$" . json-mode)
          ("\\.eslintrc$" . json-mode))
-  :config)
+  :config
+  (setq js-indent-level 2))
 
 (use-package js2-mode
   :mode (("\\.m?js$" . js2-mode))
@@ -42,6 +53,18 @@
     :hooks   '(js2-mode-hook rjsx-mode-hook javascript-mode-hook)
     :command (lambda () (list "node" "--version"))
     :parser  (lambda (line) (s-join "." (butlast (split-string (cadr (split-string (s-trim line) "v")) "\\.") 1)))))
+
+;; CSS & SCSS
+(use-package css-mode
+  :config (setq css-indent-offset 2))
+
+(use-package scss-mode
+  :init (setq scss-compile-at-save nil))
+
+(use-package css-eldoc
+  :commands turn-on-css-eldoc
+  :hook ((css-mode scss-mode) . turn-on-css-eldoc))
+
 
 (provide 'web)
 ;;; web.el ends here
