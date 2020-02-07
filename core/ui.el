@@ -247,12 +247,14 @@
 
 (use-package display-line-numbers
   :ensure nil
+  :commands (display-line-numbers-scale-linum)
   :hook ((prog-mode . display-line-numbers-mode))
   :config
-  (setq display-line-numbers-width 3)
-  (let ((bg (face-attribute 'solaire-default-face :background)))
-    (set-face-attribute 'line-number nil :height 0.7 :background bg)
-    (set-face-attribute 'line-number-current-line nil :height 0.7 :background bg)))
+  (defun display-line-numbers-scale-linum ()
+    (set-face-attribute 'line-number nil :height 0.6 :background (face-background 'solaire-default-face))
+    (set-face-attribute 'line-number-current-line nil :height 0.6 :background (face-background 'solaire-default-face)))
+  (display-line-numbers-scale-linum)
+  (setq display-line-numbers-width 3))
 
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
@@ -287,7 +289,15 @@
 
 (bind-keys ("H-0" . solaire-default-face-ts-reset)
            ("H--" . solaire-default-face-ts-decrease)
-           ("H-=" . solaire-default-face-ts-increase))
+           ("H-=" . solaire-default-face-ts-increase)
+           ("H-_" . default-ts-decrease)
+           ("H-+" . default-ts-increase))
+
+(advice-add 'solaire-default-face-ts-increase :after 'display-line-numbers-scale-linum)
+(advice-add 'solaire-default-face-ts-decrease :after 'display-line-numbers-scale-linum)
+(advice-add 'default-ts-increase :after 'display-line-numbers-scale-linum)
+(advice-add 'default-ts-decrease :after 'display-line-numbers-scale-linum)
+
 
 ;; Custom sets
 (display-battery-mode 1)
