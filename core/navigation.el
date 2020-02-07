@@ -129,7 +129,7 @@
   (setq dumb-jump-prefer-searcher 'rg
         dumb-jump-selector 'ivy)
   :bind (("M-." . dumb-jump-go)
-         ("M-?" . dumb-jump-go-prompt)
+         ("M-?" . dumb-jump-quick-look)
          ("M-," . dumb-jump-back)
          :map question-map
          ("j" . dumb-jump-go-prompt)))
