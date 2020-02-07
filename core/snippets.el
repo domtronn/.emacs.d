@@ -4,7 +4,10 @@
 ;;
 
 (use-package yasnippet
-  :hook (after-init . yas-global-mode))
+  :hook (after-init . yas-global-mode)
+  :config
+  (add-to-list 'yas-snippet-dirs
+               (format "%s/etc/yasnippet/snippets" user-emacs-directory)))
 
 (use-package yasnippet-snippets
   :after yasnippet)
