@@ -10,14 +10,31 @@
   (run-hooks 'after-load-theme-hook))
 
 (use-package dashboard
+  :after (dash s)
   :config
+  (defun dashboard-insert-env (list-size)
+    (funcall
+     (-compose
+      (-partial '-map 'insert)
+      (-partial '-interpose " | "))
+     (--map
+      (format (caddr it) (replace-regexp-in-string (cadr it) "\\1" (s-trim (shell-command-to-string (car it)))))
+      `(("node --version" ".*?\\([0-9]+\.[0-9]+\.[0-9]+\\).*" ,(format "%s %%s" (all-the-icons-alltheicon "nodejs" :v-adjust -0.1 :height 1.6 :face 'error)))
+        ("go version" ".*?\\([0-9]+\.[0-9]+\.[0-9]+\\).*" ,(format " %s %%s" (all-the-icons-fileicon "go" :v-adjust -0.1 :height 1.6 :face 'error)))
+        ("rustc --version" ".*?\\([0-9]+\.[0-9]+\.[0-9]+\\).*" ,(format " %s %%s" (all-the-icons-alltheicon "rust" :v-adjust -0.1 :height 1.8 :face 'error)))
+        ("ruby --version" ".*?\\([0-9]+\.[0-9]+\.[0-9]+\\).*" ,(format " %s %%s" (all-the-icons-alltheicon "ruby-alt" :v-adjust -0.1 :height 1.5 :face 'error)))
+        ))))
+  (add-to-list 'dashboard-item-generators  '(env . dashboard-insert-env))
+  (add-to-list 'dashboard-items '(env) t)
+
   (setq
    dashboard-startup-banner "~/.emacs.d/var/logo.png"
    dashboard-center-content t
    dashboard-set-heading-icons t
    dashboard-set-file-icons t
 
-   dashboard-items '((recents . 10)
+   dashboard-items '((env)
+                     (recents . 10)
                      (projects . 5)
                      (bookmarks . 5))
 
@@ -117,13 +134,15 @@
                 (--map (s-replace "company-" "" (format "%s" it))
                        (if (listp company-backend) company-backend (list company-backend)))))))
 
-  (doom-modeline-def-segment buffer-info
+  (doom-modeline-def-segment
+    buffer-info
     "Overwrite of buffer info to not include the icon"
     (concat
      (doom-modeline--buffer-state-icon)
      (doom-modeline--buffer-name)))
 
-  (doom-modeline-def-segment buffer-type
+  (doom-modeline-def-segment
+    buffer-type
     "Buffer icon and version if it exists"
     (concat
      (doom-modeline-spc)
@@ -133,7 +152,8 @@
         (format "%s " doom-modeline-env--version)
         'face '(:height 0.7)))))
 
-  (doom-modeline-def-modeline 'main
+  (doom-modeline-def-modeline
+    'main
     '(bar workspace-name window-number modals matches buffer-type buffer-info remote-host)
     '(company-backend misc-info persp-name battery debug lsp input-method buffer-encoding  process vcs checker)))
 
