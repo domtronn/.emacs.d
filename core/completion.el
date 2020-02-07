@@ -130,6 +130,9 @@
          ("C-o"     . counsel-projectile-find-file)
          ("M-s"     . counsel-projectile-rg)))
 
+(use-package company-emoji
+  :bind ("C-M-:" . company-emoji))
+
 (use-package counsel-osx-app
   :if (memq window-system '(mac ns))
   :bind (("s-O" . counsel-osx-app)))
