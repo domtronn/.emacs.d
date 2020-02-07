@@ -40,7 +40,7 @@
     (treemacs-fringe-indicator-mode)
     (treemacs-git-mode 'simple)
     (setq treemacs-is-never-other-window t
-          treemacs-position 'right))
+          treemacs-position 'left))
   )
 
 (use-package treemacs-magit :after treemacs magit)
