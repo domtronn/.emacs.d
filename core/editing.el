@@ -105,9 +105,9 @@
          ("s-D" . duplicate-thing-replace)))
 
 (use-package multiple-cursors
-  :config (setq mc/always-run-for-all t)
   :hook (multiple-cursors-mode
          . (lambda ()
+             (setq mc/always-run-for-all t)
              (bind-keys
               :map mc/keymap
               ("<backspace>" . delete-backward-char)
