@@ -212,9 +212,7 @@
 ;; css  - npm install -g vscode-css-languageserver-bin
 ;; js   - npm i -g typescript-language-server; npm i -g typescript
 ;; json - npm i -g vscode-json-languageserver
-
 (use-package lsp-mode
-  :disabled
   :hook (((go-mode
            js2-mode
            rjsx-mode
@@ -223,6 +221,9 @@
            css-mode
            json-mode
            rustic-mode) . lsp-deferred))
+  :config (setq
+           lsp-auto-configure t
+           lsp-enable-snippet t)
   :commands (lsp))
 
 (bind-keys
