@@ -159,9 +159,9 @@
                                   (x-list-fonts "*" nil (selected-frame))))))
       (ivy-read "Font: " candidates
                 :action (lambda (x) (funcall 'set-face-font
-                                        (or face 'default)
-                                        (cdr x)
-                                        (selected-frame))))))
+                                             (or face 'default)
+                                             (cdr x)
+                                             (selected-frame))))))
 
   (defun ivy-set-face-font ()
     (interactive)
@@ -189,7 +189,7 @@
   :after ivy
   :config
   (setq ivy-posframe-border-width 30
-        ivy-posframe-min-width 60
+        ivy-posframe-min-width 80
         ivy-posframe-width 120
         ivy-posframe-min-height 20
         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
