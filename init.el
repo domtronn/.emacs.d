@@ -11,6 +11,8 @@
 ;; FIXME: Electric pair mode in JS is shite
 ;; TODO: web mode for HTML and EJS etc
 ;; TODO: format all popup buffer looks shit
+;; FIXME: `comment-or-uncoment-region' is broken
+;; TODO: Write imenu module for JSON navigation
 
 ;;; Code:
 
@@ -39,15 +41,12 @@
     :commands (exec-path-from-shell-getenvs
                exec-path-from-shell-setenv)
     :config
+    (setq exec-path-from-shell-debug t)
     (add-to-list 'exec-path-from-shell-variables "NVM_BIN")
     (add-to-list 'exec-path-from-shell-variables "GOPATH")
     (add-to-list 'exec-path-from-shell-variables "GEM_PATH")
-    :hook (emacs-startup
-           . (lambda ()
-               (async-start
-                `(lambda ()
-                   '(,(exec-path-from-shell-getenvs exec-path-from-shell-variables)))
-                (lambda (res) (mapc (lambda (p) (exec-path-from-shell-setenv (car p) (cdr p))) (car res)))))))
+
+    :hook (emacs-startup . exec-path-from-shell-initialize))
 
   (use-package restart-emacs
     :commands (restart-emacs)
