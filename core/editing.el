@@ -140,11 +140,14 @@
 (delete-selection-mode 1)
 
 (bind-keys
- ("C-k"   . kill-line)
- ("C-S-k" . kill-whole-line)
- ("M-D"   . backward-kill-word)
- ("s-/"   . comment-or-uncomment-region)
- ("C-j"   . join-line))
+ ("C-x a a" . align-current)
+ ("M-u"     . upcase-char)
+ ("M-l"     . downcase-word)
+ ("C-k"     . kill-line)
+ ("C-S-k"   . kill-whole-line)
+ ("M-D"     . backward-kill-word)
+ ("s-/"     . comment-or-uncomment-region)
+ ("C-j"     . join-line))
 
 (provide 'editing)
 ;;; editing.el ends here
