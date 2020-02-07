@@ -138,8 +138,8 @@
   :bind (("s-O" . counsel-osx-app)))
 
 (use-package swiper
-  :bind (("C-;" . swiper)
-         ("C-:" . swiper-all)))
+  :bind (("C-;" . swiper-thing-at-point)
+         ("C-:" . swiper-all-thing-at-point)))
 
 (use-package ivy-hydra :after ivy)
 (use-package ivy
