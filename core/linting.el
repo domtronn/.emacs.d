@@ -21,6 +21,14 @@
              ("p" . flycheck-previous-error)
              ("n" . flycheck-next-error))
 
+  (defun flycheck-debug-eslint ()
+    "Run the checker config to see what the error is."
+    (interactive)
+    (let* ((executable (flycheck-find-checker-executable 'javascript-eslint))
+           (cmd (format "%s --print-config %s" executable (or buffer-file-name
+                                                              "index.js"))))
+      (message "%s" (shell-command-to-string cmd))))
+
   (with-eval-after-load 'js2-mode
     (setq flycheck-javascript-eslint-executable "eslint_d")))
 
