@@ -74,7 +74,12 @@
   :config
   (electric-operator-add-rules-for-mode 'emacs-lisp-mode (cons "-" nil) (cons "." " . "))
   (electric-operator-add-rules-for-mode 'clojure-mode (cons "-" nil))
-  (electric-operator-add-rules-for-mode 'go-mode (cons ":=" " := ")))
+  (electric-operator-add-rules-for-mode 'go-mode (cons ":=" " := "))
+  (electric-operator-add-rules-for-mode 'js2-mode (cons "==" " === "))
+  (electric-operator-add-rules-for-mode 'rjsx-mode (cons "==" " === "))
+  (electric-operator-add-rules-for-mode 'web-mode (cons "<" nil) (cons ">" nil))
+
+  )
 
 (use-package visual-regexp
   :bind (("s-r" . vr/replace)
