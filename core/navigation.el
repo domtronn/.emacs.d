@@ -46,6 +46,22 @@
 (use-package treemacs-magit :after treemacs magit)
 (use-package treemacs-projectile :after treemacs projectile)
 
+(use-package dired
+  :ensure nil
+  :custom
+  (dired-recursive-deletes 'always)
+  (dired-recursive-copies 'always)
+  (insert-directory-program "gls")
+  (dired-listing-switches "-alh --group-directories-first")
+
+  :bind (:map dired-mode-map
+              ("W" . wdired-change-to-wdired-mode) ))
+
+(use-package dired-quick-sort
+  :after dired
+  :bind (:map dired-mode-map
+              ("S" . dired-quick-sort)))
+
 (use-package undo-tree
   :hook (after-init . global-undo-tree-mode)
   :init
