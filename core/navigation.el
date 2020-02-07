@@ -141,10 +141,11 @@
 (use-package point-history
   :load-path "etc/elisp-packages/point-history"
   :hook (prog-mode . point-history-mode)
-  :bind (:map point-history-show-mode-map
-              ("q" . point-history-goto)
-              :map avy-map
-              ("h" . point-history-show)))
+  :bind (("C-x p" . point-history-show)
+         :map point-history-show-mode-map
+         ("q" . point-history-goto)
+         :map avy-map
+         ("h" . point-history-show)))
 
 (use-package wgrep
   :hook (rg-mode . wgrep-rg-setup)
