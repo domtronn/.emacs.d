@@ -42,6 +42,10 @@
   :after flycheck
   :config (flycheck-rust-setup))
 
+(use-package eslintd-fix
+  :after flycheck
+  :hook (js2-mode . eslintd-fix-mode))
+
 (use-package lsp-ui
   :commands lsp-ui-mode
   :hook (prog-mode . lsp-ui-mode)
@@ -69,7 +73,8 @@
 
 (use-package format-all
   :init (define-prefix-command 'format-all-map)
-  :hook (prog-mode . format-all-mode)
+  :hook ((prog-mode . format-all-mode)
+         ((web-mode js2-mode) . (lambda () (format-all-mode 0))))
   :config
   (bind-keys :prefix "C-c RET"
              :prefix-map format-all-map
