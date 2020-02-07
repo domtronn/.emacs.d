@@ -35,6 +35,10 @@
   :bind (:map vc-prefix-map
               ("l" . git-link)))
 
+(use-package kubernetes
+  :commands (kubernetes-overview)
+  :bind ("C-c k" . kubernetes-overview))
+
 (use-package ediff
   :ensure nil
   :init (defvar ediff-window-config nil)
