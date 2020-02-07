@@ -33,6 +33,10 @@
          ("<s-backspace>"   . sp-splice-sexp)
          ("<S-s-backspace>" . sp-backward-kill-sexp)
          ("s--"             . sp-forward-slurp-sexp)
+         ("s-l"             . sp-forward-slurp-sexp)
+         ("H-{"             . sp-forward-slurp-sexp)
+         ("H-("             . sp-forward-slurp-sexp)
+         ("H-["             . sp-forward-slurp-sexp)
 
          :map emacs-lisp-mode-map
          ("C-S-k" . sp-kill-whole-line)))
