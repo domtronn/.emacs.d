@@ -25,6 +25,7 @@
          ))
 
 (use-package treemacs
+  :disabled
   :bind (("s-0" . treemacs-select-window)
          ("s-)" . treemacs-kill-buffer)
          ("<mouse-1>" . treemacs-RET-action))
@@ -55,7 +56,7 @@
   (dired-listing-switches "-alh --group-directories-first")
 
   :bind (:map dired-mode-map
-              ("W" . wdired-change-to-wdired-mode) ))
+              ("W" . wdired-change-to-wdired-mode)))
 
 (use-package dired-quick-sort
   :after dired

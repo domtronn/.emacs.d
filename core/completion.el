@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-
 (use-package amx
   :init
   (setq amx-history-length 20
@@ -153,10 +152,12 @@
     (interactive)
     (let* ((re "-\\*-\\([a-z0-9/ ]+\\)-\\([a-z]+\\).*" )
            (candidates (--map
-                        (cons (s-replace-regexp re "\\1 (\\2)" it) it)
-                        (--filter (and (s-contains-p "normal-normal-*" it)
-                                       (s-contains-p "-m-0" it))
-                                  (x-list-fonts "*" nil (selected-frame))))))
+                        (cons (nth 2 (s-split "-" it)) it)
+                        (-uniq (--filter (let ((split (s-split "-" it)))
+                                           (and (string= "m" (nth 11 split))
+                                                (string= "normal" (nth 3 split))
+                                                (string= "normal" (nth 4 split))))
+                                         (x-list-fonts "*" nil (selected-frame)))))))
       (ivy-read "Font: " candidates
                 :action (lambda (x) (funcall 'set-face-font
                                              (or face 'default)
@@ -203,6 +204,7 @@
   :config (ivy-rich-mode))
 
 (use-package which-key
+  :disabled
   :config
   (which-key-setup-side-window-right)
   (which-key-mode))
@@ -213,6 +215,7 @@
 ;; js   - npm i -g typescript-language-server; npm i -g typescript
 ;; json - npm i -g vscode-json-languageserver
 (use-package lsp-mode
+  :disabled t
   :hook (((go-mode
            js2-mode
            rjsx-mode

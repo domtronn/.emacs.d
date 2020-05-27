@@ -260,7 +260,7 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;; Default theme
-(load-theme (if window-system 'kaolin-dark 'doom-moonlight))
+(load-theme (if window-system 'doom-horizon'doom-horizon))
 
 (use-package prog-mode
   :ensure nil

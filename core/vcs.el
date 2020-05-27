@@ -10,13 +10,17 @@
          ("C-c C-g "         . magit-dispatch)
          ("C-c b"            . magit-blame)
          :map magit-mode-map
-         ("o"                . magit-open-file-other-window)))
+         ("o"                . magit-open-file-other-window))
+  :config
+  (setq magit-git-executable "/usr/local/bin/git"))
 
 (use-package magit-todos
   :after magit
   :config (magit-todos-mode))
 
-(use-package forge :after magit)
+(use-package forge
+  :disabled t
+  :after magit)
 
 (use-package git-timemachine
   :custom-face
@@ -60,28 +64,36 @@
    ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package git-messenger
+  :disabled
   :hook (prog-mode . git-messenger:title-mode)
+  :init
+  (defvar git-messenger:title "%b" "The title to render in the frame")
+  (defvar git-messenger:timer nil "Timer variable for debounce.")
+  (defvar git-messenger:debounce 1 "Amount of time to debounce git messenger.")
   :config
   (defun git-messenger:title ()
-    "Get the commit to be formatted into the title."
-    (condition-case nil
-        (let* ((vcs (git-messenger:find-vcs))
-               (file (buffer-file-name (buffer-base-buffer)))
-               (line (line-number-at-pos))
-               (commit-info (git-messenger:commit-info-at-line vcs file line))
-               (commit-id (car commit-info))
-               (commit-author (cdr commit-info))
-               (commit-msg (s-trim (git-messenger:commit-message vcs commit-id))))
+    "Debounced function to get the commit to be formatted into the title."
+    (when git-messenger:timer (cancel-timer git-messenger:timer))
+    (run-at-time
+     git-messenger:debounce nil
+     (lambda ()
+       (condition-case nil
+           (let* ((vcs (git-messenger:find-vcs))
+                  (file (buffer-file-name (buffer-base-buffer)))
+                  (line (line-number-at-pos))
+                  (commit-info (git-messenger:commit-info-at-line vcs file line))
+                  (commit-id (car commit-info))
+                  (commit-author (cdr commit-info))
+                  (commit-msg (s-trim (git-messenger:commit-message vcs commit-id))))
 
-          (if (s-contains-p "not yet committed" commit-msg)
-              (format "%%b: %s" commit-msg)
-            (format "%%b: %s - @%s" commit-msg commit-author)))
-      (error (format "%%b"))))
+             (if (s-contains-p "not yet committed" commit-msg)
+                 (format "%%b: %s" commit-msg)
+               (format "%%b: %s - @%s" commit-msg commit-author)))
+         (error (format "%%b"))))))
 
   (define-minor-mode git-messenger:title-mode
     "Minor mode for showing git message in the frame title."
-    (setq frame-title-format `(:eval (git-messenger:title))))
-  )
+    (setq frame-title-format `(:eval (lambda () git-messenger:title)))))
 
 (provide 'vcs)
 

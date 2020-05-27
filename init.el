@@ -46,7 +46,8 @@
     (add-to-list 'exec-path-from-shell-variables "GOPATH")
     (add-to-list 'exec-path-from-shell-variables "GEM_PATH")
 
-    :hook (emacs-startup . exec-path-from-shell-initialize))
+    :hook (emacs-startup . (lambda () (let ((inhibit-message t))
+                                        (exec-path-from-shell-initialize)))))
 
   (use-package restart-emacs
     :commands (restart-emacs)
@@ -58,6 +59,7 @@
 
   (use-package esup :commands (esup))
   (use-package auto-package-update
+    :disabled ; Seems to not read from MELPA
     :config
     (setq auto-package-update-interval 7
           auto-package-update-delete-old-versions t
@@ -82,13 +84,16 @@
   (use-package navigation :load-path "core")
 
   ;; ;; Load language modes
-  (use-package go      :load-path "modes")
-  (use-package web     :load-path "modes")
-  (use-package rust    :load-path "modes")
-  (use-package ruby    :load-path "modes")
-  (use-package elisp   :load-path "modes")
-  (use-package clojure :load-path "modes")
+  (use-package go          :load-path "modes" :disabled)
+  (use-package web         :load-path "modes")
+  (use-package rust        :load-path "modes" :disabled)
+  (use-package ruby        :load-path "modes" :disabled)
+  (use-package elisp       :load-path "modes" :disabled)
+  (use-package clojure     :load-path "modes" :disabled)
+  (use-package scheme-lang :load-path "modes" :disabled)
 
+  (global-set-key (kbd "s-O") '(lambda () (interactive) (find-file "~/workspace/recharge-eevee/src/app.jsx")))
+  
   ;; custom settings
   (fset 'yes-or-no-p 'y-or-n-p)
   (bind-keys
@@ -99,3 +104,4 @@
 
 (provide 'init)
 ;;; init.el ends here
+(put 'upcase-region 'disabled nil)

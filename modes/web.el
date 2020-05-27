@@ -5,7 +5,8 @@
 ;; HTML
 (use-package web-mode
   :mode (("\\.ejs$" . web-mode)
-         ("\\.html$" . web-mode))
+         ("\\.html$" . web-mode)
+         ("\\.tsx?$" . web-mode))
   :config (setq web-mode-markup-indent-offset 2
                 web-mode-css-indent-offset 2
                 web-mode-code-indent-offset 2))
@@ -16,6 +17,13 @@
          ("\\.eslintrc$" . json-mode))
   :config
   (setq js-indent-level 2))
+
+(use-package js-doc
+  :after (js2-mode)
+  :bind ((:map js2-mode-map
+               ("C-c C-c d" . js-doc-insert-function-doc)
+               ("H-i" . js-doc-insert-tag)
+               ("H-d" . js-doc-insert-function-doc))))
 
 (use-package js2-mode
   :mode (("\\.m?js$" . js2-mode))
@@ -28,12 +36,15 @@
         js2-basic-offset 2))
 
 (use-package rjsx-mode
-  :mode ("\\.m?jsx?$" . rjsx-mode)
+  :mode ("\\.m?jsx$" . rjsx-mode)
   :hook (rjsx-mode . js2-mode-hide-warnings-and-errors)
   :config
-  (set-face-attribute 'rjsx-tag-bracket-face nil
-                      :inherit 'rjsx-tag)
+  (set-face-foreground 'rjsx-tag-bracket-face
+                       (face-foreground 'font-lock-comment-face))
   (unbind-key ">" rjsx-mode-map))
+
+(use-package nodejs-repl
+  :commands (nodejs-repl))
 
 (use-package auto-rename-tag
   :after rjsx-mode
@@ -50,9 +61,13 @@
 
 (with-eval-after-load 'doom-modeline
   (doom-modeline-def-env node
-    :hooks   '(js2-mode-hook rjsx-mode-hook javascript-mode-hook)
-    :command (lambda () (list "node" "--version"))
-    :parser  (lambda (line) (s-join "." (butlast (split-string (cadr (split-string (s-trim line) "v")) "\\.") 1)))))
+                         :hooks   '(js2-mode-hook rjsx-mode-hook javascript-mode-hook)
+                         :command (lambda () (list "node" "--version"))
+                         :parser  (lambda (line) (s-join "." (butlast (split-string (cadr (split-string (s-trim line) "v")) "\\.") 1)))))
+
+(use-package tide
+  :disabled
+  :mode (("\\.tsx?" . tide-mode)))
 
 ;; CSS & SCSS
 (use-package css-mode

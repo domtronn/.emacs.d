@@ -70,9 +70,10 @@
 (use-package electric-operator
   :commands (electric-operator-get-rules-for-mode
              electric-operator-add-rules-for-mode)
-  :hook (prog-mode . electric-operator-mode)
+  :hook ((prog-mode . electric-operator-mode)
+         (scheme-mode . (lambda () (electric-operator-mode 0))))
   :config
-  (electric-operator-add-rules-for-mode 'emacs-lisp-mode (cons "-" nil) (cons "." " . "))
+  (electric-operator-add-rules-for-mode 'emacs-lisp-mode (cons "-" "-") (cons "." " . "))
   (electric-operator-add-rules-for-mode 'clojure-mode (cons "-" nil))
   (electric-operator-add-rules-for-mode 'go-mode (cons ":=" " := "))
   (electric-operator-add-rules-for-mode 'js2-mode (cons "==" " === "))

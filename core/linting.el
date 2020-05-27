@@ -9,10 +9,9 @@
              flycheck-next-error)
   :bind (("M-}" . flycheck-mode))
   :config
-  (global-flycheck-mode)
-  (setq flycheck-emacs-lisp-load-path 'inherit
-        flycheck-check-syntax-automatically '(save mode-enabled)
-        flycheck-disabled-checkers '(javscript-jshint scss))
+  (setq-default flycheck-emacs-lisp-load-path 'inherit
+                flycheck-check-syntax-automatically '(save mode-enabled)
+                flycheck-disabled-checkers '(javascript-jshint scss))
   (set-face-background 'flycheck-fringe-warning (face-foreground 'flycheck-fringe-warning))
   (set-face-background 'flycheck-fringe-error (face-foreground 'flycheck-fringe-error))
   (bind-keys :prefix "C-c e"
@@ -72,6 +71,7 @@
               ("C-c" . whitespace-cleanup)))
 
 (use-package format-all
+  :disabled
   :init (define-prefix-command 'format-all-map)
   :hook ((prog-mode . format-all-mode)
          ((web-mode js2-mode) . (lambda () (format-all-mode 0))))
@@ -83,6 +83,16 @@
 (use-package quickrun
   :commands quickrun
   :bind ("C-x RET RET" . quickrun)
+  :config
+  (defun delete-quickrun-window ()
+    "Find and delete the `quickrun--buffer-name' window."
+    (interactive)
+    (let ((win (get-window-with-predicate
+                (lambda (win) (string= quickrun--buffer-name
+                                  (buffer-name (window-buffer win)))))))
+      (when win (delete-window win))))
+  (advice-add 'quickrun :before 'delete-quickrun-window)
+  (quickrun-set-default "js" "javascript/node")
   )
 
 (provide 'linting)
